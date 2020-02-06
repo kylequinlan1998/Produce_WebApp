@@ -1,0 +1,26 @@
+﻿@page
+@model Produce_WebApp.userData
+@{
+    ViewData["Title"] = "UserDataInput";
+    @Model.error;
+}
+
+<h1>UserDataInput</h1>
+<form method="post">
+    <input type="text" asp-for="UserData.FirstName" placeholder="FirstName" />
+    <input type="text" asp-for="UserData.Address" placeholder="Address" />
+    <input type="text" asp-for="UserData.Age" placeholder="Age" />
+    <input type="text" asp-for="UserData.Weight" placeholder="Weight" />
+    <input type="text" asp-for="UserData.Height" placeholder="Height" />
+    <input type="text" asp-for="UserData.HoursPerDay" placeholder="Hours Worked Per Day" />
+    <input type="text" asp-for="UserData.WaterPerDay" placeholder="Water Per Day" />
+    <input type="text" asp-for="UserData.Sleep" placeholder="Sleep" />
+    <p>
+        <h1>Career</h1>
+    </p>
+    <input type="text" asp-for="UserData.Salary" placeholder="Salary" />
+    <input type="text" asp-for="UserData.Breaks" placeholder="Breaks" />
+
+    <button type="submit"></button>
+</form>
+
