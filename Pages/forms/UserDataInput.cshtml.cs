@@ -22,10 +22,14 @@ namespace Produce_WebApp
 
         public IActionResult OnPost()
         {
+            //Ensure the Data has been Correctly Entered into the form.
+            //If so create an instance of the DataController and pass the Data Model as an argument.
             if (!ModelState.IsValid)
             {
                 error = "The Data was not In the correct form,Please try again.";
-                DataController controller = new DataController(UserData);
+                //Instance of the DataFlowController Class.
+                DataController controller = new DataController();
+                controller.RunEncryption(UserData).Wait();
                 return Page();
 
             }

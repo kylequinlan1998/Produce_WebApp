@@ -13,22 +13,40 @@ namespace Produce_WebApp.DataFlowController
 {
 	public class DataController
 	{
-		public DataController(UserDataModel userData )
+		public BfvEncryption encryption;
+		public CloudInterface cloudInterface;
+		public DataController()
 		{
-			//Encode and Encrypt UserDataModel in a matrix.
-			//RunEncryption(userData);
-			TestRequest req = new TestRequest();
+			//Create an instance of bfv Encryption
+		    encryption = new BfvEncryption();
 		}
 
-		public void RunEncryption(UserDataModel userData)
+		public async Task RunEncryption(UserDataModel userData)
 		{
+			//cloudInterface = new CloudInterface();
 			//Create instance of Encryption Class and call matrixCreation.
-			BfvEncryption bfv = new BfvEncryption();
-			bfv.testing(userData);
-
-
+			Plaintext plain = new Plaintext();
+			Ciphertext cipher = new Ciphertext();
+			//Encode and integer.
+			plain = encryption.encodeInt(10);
+			//Encrypt integer
+			cipher = encryption.encryptInt(plain);
+			//Create an instance of the Cloud Interface.
+			cloudInterface = new CloudInterface();
+			await cloudInterface.CallApi(cipher);
+			
 		}
 
+		
+		public void DecryptResult(Ciphertext cipher)
+		{
+			//Ciphertext input = (Ciphertext)obj;
+			Plaintext plainOutput = new Plaintext();
+			int integerOutput;
+			encryption.decryptor.Decrypt(cipher, plainOutput);
+			integerOutput = encryption.encoder.DecodeInt32(plainOutput);
+			Debug.WriteLine(integerOutput);
+		}
 		
 	}
 }

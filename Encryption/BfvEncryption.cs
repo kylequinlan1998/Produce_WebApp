@@ -24,11 +24,14 @@ namespace Produce_WebApp.Encryption
 		{
 			//Setting up the Encryption parameters for my Encryption,Creating SealContext
 			//Setting the PolyModulusDegree and assigning a Coefficient Modulus.
+			//Creates an instance of the SEAL context.
+			//----------------------------------------------------------------
 			parms = new EncryptionParameters(SchemeType.BFV);
 			parms.PolyModulusDegree = polyModulusDegree;
 			parms.CoeffModulus = CoeffModulus.BFVDefault(polyModulusDegree);
 			parms.PlainModulus = PlainModulus.Batching(polyModulusDegree, 20);
 			context = new SEALContext(parms);
+			//-----------------------------------------------------------------
 			//Construct a KeyGenerator using the SealContext and assign
 			//The public and Private key values to the keys Variable.
 			keygen = new KeyGenerator(context);
@@ -109,28 +112,14 @@ namespace Produce_WebApp.Encryption
 			return input;
 		}
 
-		public long testing(UserDataModel userData)
+		public int DecryptInt(Ciphertext cipherInput)
 		{
-			BfvEncryption bfv = new BfvEncryption();
-			Plaintext plainEncoded = new Plaintext();
-			Plaintext plainDeco = new Plaintext();
-			plainDeco = encodeInt(10);
-			plainEncoded = encodeInt(Convert.ToUInt64(userData.Age));
+			Plaintext plainOut = new Plaintext();
+			decryptor.Decrypt(cipherInput, plainOut);
+			int intOut;
+			intOut = encoder.DecodeInt32(plainOut);
 
-			Ciphertext encrypted = new Ciphertext();
-			Ciphertext[] cipherArray = new Ciphertext[5];
-
-			cipherArray[0] = encryptInt(plainEncoded);
-
-			evaluator.AddPlainInplace(cipherArray[0], plainDeco);
-			decryptor.Decrypt(cipherArray[0],plainDeco);
-
-			long result = encoder.DecodeInt64(plainDeco);
-			Debug.WriteLine(result);
-			return result;
-
-			//Plaintext value1 = 
-			//bfv.evaluator.
+			return intOut;
 		}
 	}
 }
