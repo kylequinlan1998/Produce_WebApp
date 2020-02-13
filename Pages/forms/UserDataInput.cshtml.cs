@@ -14,28 +14,31 @@ namespace Produce_WebApp
     {
         [BindProperty]
         public UserDataModel UserData { get; set; }
+        public Controller controller1;
         public string error = "";
-        public void OnGet()
-        {
+        
 
-        }
-
-        public IActionResult OnPost()
+        public IActionResult OnPostTest()
         {
             //Ensure the Data has been Correctly Entered into the form.
             //If so create an instance of the DataController and pass the Data Model as an argument.
             if (!ModelState.IsValid)
             {
                 error = "The Data was not In the correct form,Please try again.";
-                //Instance of the DataFlowController Class.
-                DataController controller = new DataController();
-                controller.RunEncryption(UserData).Wait();
+                testing();
                 return Page();
 
             }
-            //DataController controller = new DataController(UserData);
-            
+            error = "Is this working";
+
             return RedirectToPage("/Index", new { city = UserData.Address });
         }
+
+        public void testing()
+        {
+            BfvEncryption bfv = new BfvEncryption();
+
+        }
+
     }
 }

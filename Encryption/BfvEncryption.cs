@@ -10,6 +10,7 @@ namespace Produce_WebApp.Encryption
 {
 	public class BfvEncryption
 	{
+		public BfvEncryption encryption;
 		public EncryptionParameters parms;
 		public SEALContext context;
 		public (PublicKey, SecretKey) keys;
@@ -42,8 +43,43 @@ namespace Produce_WebApp.Encryption
 			evaluator = new Evaluator(context);
 			encoder = new IntegerEncoder(context);
 			batchEncoder = new BatchEncoder(context);
+
+			//encryption = new BfvEncryption();
 		}
 
+		public Ciphertext EncryptData(int number)
+		{
+			Plaintext plainText = new Plaintext();
+			Ciphertext cipherText = new Ciphertext();
+
+			plainText = encoder.Encode(number);
+
+			//Encrypted Data saved in cipherText Variable
+			encryptor.Encrypt(plainText, cipherText);
+
+			return cipherText;
+
+
+		}
+
+	
+
+		public EncryptedDataModel EncryptModel(UserDataModel userData)
+		{
+			//Takes in a userDataModel and returns an EncryptedDataModel
+			EncryptedDataModel EncryptedData = new EncryptedDataModel();
+			EncryptedData.Age = encryption.EncryptData(userData.Age);
+			EncryptedData.Height = encryption.EncryptData(userData.Height);
+			EncryptedData.HoursWeek = encryption.EncryptData(userData.HoursPerWeek);
+			EncryptedData.Weight = encryption.EncryptData(userData.Weight);
+			EncryptedData.Sleep = encryption.EncryptData(userData.Sleep);
+			EncryptedData.Water = encryption.EncryptData(userData.WaterPerDay);
+			EncryptedData.Breaks = encryption.EncryptData(userData.Breaks);
+
+
+			return EncryptedData;
+			
+		}
 		public Plaintext encodeInt(ulong integer)
 		{
 			//Encoding an Integer using my encoder,Returns a Plaintext.
@@ -63,53 +99,10 @@ namespace Produce_WebApp.Encryption
 			return encryptedInteger;
 		}
 
-		public Plaintext matrixCreation(UserDataModel dataModel)
-		{
-			//Takes in a user data Model,Creates a matrix with the datamodel
-			//Batch Encodes the Matrix to Plaintexts.
-			ulong slotCount = batchEncoder.SlotCount;
-			ulong rowSize = slotCount / 2;
-			//Creates a matrix of integersof size slotcount
-			//Casts the input values to unsigned long and stores
-			//them in the matrix podMatrix.
-			ulong[] podMatrix = new ulong[slotCount];
-			podMatrix[0] = Convert.ToUInt64(dataModel.Age);
-			podMatrix[1] = Convert.ToUInt64(dataModel.Height);
-			podMatrix[2] = Convert.ToUInt64(dataModel.Weight);
-			podMatrix[3] = Convert.ToUInt64(dataModel.Salary);
-			podMatrix[4] = Convert.ToUInt64(dataModel.Sleep);
-			podMatrix[5] = Convert.ToUInt64(dataModel.WaterPerDay);
-			podMatrix[6] = Convert.ToUInt64(dataModel.HoursPerDay);
-			
-			//Create a new Matrix to store encoded integers.
-			Plaintext plainMatrix = new Plaintext();
-			Console.WriteLine("Encode plaintext matrix:");
-			batchEncoder.Encode(podMatrix, plainMatrix);
-
-			
-			return plainMatrix;
-		}
-
-		public Ciphertext matrixEncryption(Plaintext encodedMatrix)
-		{
-			//Takes in a plantext matrix and Encrypts the matrix with 
-			//the encryptor.
-			Ciphertext encryptedMatrix = new Ciphertext();
-			//Outputting encrypted matrix into encryptedMatrix.
-			encryptor.Encrypt(encodedMatrix, encryptedMatrix);
-			//Debug.WriteLine(decryptor.InvariantNoiseBudget(encryptedMatrix));
-
-			return encryptedMatrix;
-		}
-
 		public Ciphertext Evaluate(Ciphertext input)
 		{
-			
-			Plaintext plain = new Plaintext();
-			plain = encodeInt(10);
-			evaluator.AddPlainInplace(input,plain);
 
-			return input;
+			return new Ciphertext();
 		}
 
 		public int DecryptInt(Ciphertext cipherInput)

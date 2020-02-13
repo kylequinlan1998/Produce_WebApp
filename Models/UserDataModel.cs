@@ -10,12 +10,12 @@ namespace Produce_WebApp.Models
 		public string Address { get; set; }
 		public string FirstName { get; set; }
 		public int Age { get; set; }
-		public float Weight { get; set; }
+		public int Weight { get; set; }
 		public int Height { get; set; }
-		public float WaterPerDay { get; set; }
-		public float Sleep { get; set; }
-		public float Breaks { get; set; }
-		public float Salary { get; set; }
-		public float HoursPerDay { get; set; }
+		public int WaterPerDay { get; set; }
+		public int Sleep { get; set; }
+		public int Breaks { get; set; }
+		public int Salary { get; set; }
+		public int HoursPerWeek { get; set; }
 	}
 }
