@@ -7,19 +7,19 @@
 
 <h1>UserDataInput</h1>
 <form method="post" asp-page-handler="test">
-    <input type="text" asp-for="UserData.FirstName" placeholder="FirstName" />
-    <input type="text" asp-for="UserData.Address" placeholder="Address" />
-    <input type="text" asp-for="UserData.Age" placeholder="Age" />
-    <input type="text" asp-for="UserData.Weight" placeholder="Weight" />
-    <input type="text" asp-for="UserData.Height" placeholder="Height" />
-    <input type="text" asp-for="UserData.WaterPerDay" placeholder="Water Per Day" />
-    <input type="text" asp-for="UserData.Sleep" placeholder="Sleep" />
+    <input type="text" asp-for="UserDataPlain.FirstName" placeholder="FirstName" />
+    <input type="text" asp-for="UserDataPlain.Address" placeholder="Address" />
+    <input type="text" asp-for="UserDataPlain.Age" placeholder="Age" />
+    <input type="text" asp-for="UserDataPlain.Weight" placeholder="Weight" />
+    <input type="text" asp-for="UserDataPlain.Height" placeholder="Height" />
+    <input type="text" asp-for="UserDataPlain.WaterPerDay" placeholder="Water Per Day" />
+    <input type="text" asp-for="UserDataPlain.Sleep" placeholder="Sleep" />
     <p>
         <h1>Career</h1>
     </p>
-    <input type="text" asp-for="UserData.Salary" placeholder="Salary" />
-    <input type="text" asp-for="UserData.Breaks" placeholder="Breaks" />
-    <input type="text" asp-for="UserData.HoursPerDay" placeholder="Hours Worked Per Day" />
+    <input type="text" asp-for="UserDataPlain.Salary" placeholder="Salary" />
+    <input type="text" asp-for="UserDataPlain.Breaks" placeholder="Breaks" />
+    <input type="text" asp-for="UserDataPlain.Hours" placeholder="Hours Worked Per Day" />
 
     <Button type="submit" />
 </form>

@@ -16,6 +16,6 @@ namespace Produce_WebApp.Models
 		public int Sleep { get; set; }
 		public int Breaks { get; set; }
 		public int Salary { get; set; }
-		public int HoursPerWeek { get; set; }
+		public int Hours { get; set; }
 	}
 }

@@ -13,8 +13,8 @@ namespace Produce_WebApp
     public class userData : PageModel
     {
         [BindProperty]
-        public UserDataModel UserData { get; set; }
-        public Controller controller1;
+        public UserDataModel UserDataPlain { get; set; }
+        public FlowController controller;
         public string error = "";
         
 
@@ -25,19 +25,19 @@ namespace Produce_WebApp
             if (!ModelState.IsValid)
             {
                 error = "The Data was not In the correct form,Please try again.";
-                testing();
                 return Page();
 
             }
-            error = "Is this working";
+            error = "working";
+            StartDataEncryption();
 
-            return RedirectToPage("/Index", new { city = UserData.Address });
+            return RedirectToPage("/Index", new { city = UserDataPlain.Address });
         }
 
-        public void testing()
+        public void StartDataEncryption()
         {
-            BfvEncryption bfv = new BfvEncryption();
-
+            controller = new FlowController();
+            controller.ProcessDataModel(UserDataPlain);
         }
 
     }

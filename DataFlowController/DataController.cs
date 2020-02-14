@@ -11,21 +11,22 @@ using Newtonsoft.Json;
 
 namespace Produce_WebApp.DataFlowController
 {
-	public class DataController
+	public class FlowController
 	{
+		//Access to tools to encrypt My model.
+		BfvEncryptor EncryptionTools;
 		//used for encryption and decryption.
-		public BfvEncryption encryption;
-		public DataController()
+		public FlowController()
 		{
 			//Create an instance of bfv Encryption
-		    encryption = new BfvEncryption();
+			EncryptionTools = new BfvEncryptor();
 		}
 
 		public EncryptedDataModel ProcessDataModel(UserDataModel UserModel)
 		{
 			//Takes in a UserDataModel and Returns an EncryptedDataModel.
 			EncryptedDataModel EncryptedData = new EncryptedDataModel();
-			EncryptedData = encryption.EncryptModel(UserModel);
+			EncryptedData = EncryptionTools.EncryptModel(UserModel);
 
 			return EncryptedData;
 		}

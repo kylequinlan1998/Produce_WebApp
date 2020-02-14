@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Produce_WebApp.Encryption
 {
-	public class BfvEncryption
+	public class BfvEncryptor
 	{
-		public BfvEncryption encryption;
+		public BfvEncryptor encryption;
 		public EncryptionParameters parms;
 		public SEALContext context;
 		public (PublicKey, SecretKey) keys;
@@ -21,7 +21,7 @@ namespace Produce_WebApp.Encryption
 		public Decryptor decryptor;
 		public Evaluator evaluator;
 		public BatchEncoder batchEncoder;
-		public BfvEncryption()
+		public BfvEncryptor()
 		{
 			//Setting up the Encryption parameters for my Encryption,Creating SealContext
 			//Setting the PolyModulusDegree and assigning a Coefficient Modulus.
@@ -44,7 +44,6 @@ namespace Produce_WebApp.Encryption
 			encoder = new IntegerEncoder(context);
 			batchEncoder = new BatchEncoder(context);
 
-			//encryption = new BfvEncryption();
 		}
 
 		public Ciphertext EncryptData(int number)
@@ -58,35 +57,23 @@ namespace Produce_WebApp.Encryption
 			encryptor.Encrypt(plainText, cipherText);
 
 			return cipherText;
-
-
 		}
-
-	
 
 		public EncryptedDataModel EncryptModel(UserDataModel userData)
 		{
 			//Takes in a userDataModel and returns an EncryptedDataModel
 			EncryptedDataModel EncryptedData = new EncryptedDataModel();
-			EncryptedData.Age = encryption.EncryptData(userData.Age);
-			EncryptedData.Height = encryption.EncryptData(userData.Height);
-			EncryptedData.HoursWeek = encryption.EncryptData(userData.HoursPerWeek);
-			EncryptedData.Weight = encryption.EncryptData(userData.Weight);
-			EncryptedData.Sleep = encryption.EncryptData(userData.Sleep);
-			EncryptedData.Water = encryption.EncryptData(userData.WaterPerDay);
-			EncryptedData.Breaks = encryption.EncryptData(userData.Breaks);
+			EncryptedData.Age = EncryptData(userData.Age);
+			EncryptedData.Height = EncryptData(userData.Height);
+			EncryptedData.HoursWeek = EncryptData(userData.Hours);
+			EncryptedData.Weight = EncryptData(userData.Weight);
+			EncryptedData.Sleep = EncryptData(userData.Sleep);
+			EncryptedData.Salary = EncryptData(userData.Salary);
+			EncryptedData.Water = EncryptData(userData.WaterPerDay);
+			EncryptedData.Breaks = EncryptData(userData.Breaks);
 
 
 			return EncryptedData;
-			
-		}
-		public Plaintext encodeInt(ulong integer)
-		{
-			//Encoding an Integer using my encoder,Returns a Plaintext.
-			Plaintext encodedInteger = new Plaintext();
-			encodedInteger = encoder.Encode(integer);
-
-			return encodedInteger;
 		}
 
 		public Ciphertext encryptInt(Plaintext encodedInteger)
@@ -97,12 +84,6 @@ namespace Produce_WebApp.Encryption
 			encryptor.Encrypt(encodedInteger, encryptedInteger);
 
 			return encryptedInteger;
-		}
-
-		public Ciphertext Evaluate(Ciphertext input)
-		{
-
-			return new Ciphertext();
 		}
 
 		public int DecryptInt(Ciphertext cipherInput)
