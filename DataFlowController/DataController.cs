@@ -22,6 +22,12 @@ namespace Produce_WebApp.DataFlowController
 			EncryptionTools = new BfvEncryptor();
 		}
 
+		public void StartDataEncryption(UserDataModel UserDataPlain)
+		{
+			//The encrypted DataModel
+			var EncryptedDataModel = ProcessDataModel(UserDataPlain);
+		}
+
 		public EncryptedDataModel ProcessDataModel(UserDataModel UserModel)
 		{
 			//Takes in a UserDataModel and Returns an EncryptedDataModel.
@@ -30,5 +36,7 @@ namespace Produce_WebApp.DataFlowController
 
 			return EncryptedData;
 		}
+
+		
 	}
 }

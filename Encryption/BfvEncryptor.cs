@@ -10,7 +10,6 @@ namespace Produce_WebApp.Encryption
 {
 	public class BfvEncryptor
 	{
-		public BfvEncryptor encryption;
 		public EncryptionParameters parms;
 		public SEALContext context;
 		public (PublicKey, SecretKey) keys;
@@ -18,9 +17,6 @@ namespace Produce_WebApp.Encryption
 		public KeyGenerator keygen;
 		public Encryptor encryptor;
 		public IntegerEncoder encoder;
-		public Decryptor decryptor;
-		public Evaluator evaluator;
-		public BatchEncoder batchEncoder;
 		public BfvEncryptor()
 		{
 			//Setting up the Encryption parameters for my Encryption,Creating SealContext
@@ -39,11 +35,13 @@ namespace Produce_WebApp.Encryption
 			keys = (keygen.PublicKey, keygen.SecretKey);
 			//Create an instance of an encryptor to encrypt Data.
 			encryptor = new Encryptor(context, keys.Item1);
-			decryptor = new Decryptor(context, keys.Item2);
-			evaluator = new Evaluator(context);
 			encoder = new IntegerEncoder(context);
-			batchEncoder = new BatchEncoder(context);
+		}
 
+		public (PublicKey,SecretKey) GetKeys()
+		{
+			//Return the keys generated upon instantiation.
+			return (keys.Item1, keys.Item2);
 		}
 
 		public Ciphertext EncryptData(int number)
@@ -84,16 +82,6 @@ namespace Produce_WebApp.Encryption
 			encryptor.Encrypt(encodedInteger, encryptedInteger);
 
 			return encryptedInteger;
-		}
-
-		public int DecryptInt(Ciphertext cipherInput)
-		{
-			Plaintext plainOut = new Plaintext();
-			decryptor.Decrypt(cipherInput, plainOut);
-			int intOut;
-			intOut = encoder.DecodeInt32(plainOut);
-
-			return intOut;
 		}
 	}
 }

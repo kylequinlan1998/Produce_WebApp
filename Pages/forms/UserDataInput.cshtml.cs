@@ -29,15 +29,16 @@ namespace Produce_WebApp
 
             }
             error = "working";
-            StartDataEncryption();
+            StartDataFlow();
 
             return RedirectToPage("/Index", new { city = UserDataPlain.Address });
         }
 
-        public void StartDataEncryption()
+        public void StartDataFlow()
         {
+            //Creates an instance of th Flow controller
             controller = new FlowController();
-            controller.ProcessDataModel(UserDataPlain);
+            controller.StartDataEncryption(UserDataPlain);
         }
 
     }
