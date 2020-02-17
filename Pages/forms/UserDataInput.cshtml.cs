@@ -38,7 +38,7 @@ namespace Produce_WebApp
         {
             //Creates an instance of th Flow controller
             controller = new FlowController();
-            controller.StartDataEncryption(UserDataPlain);
+            controller.StartDataProcessing(UserDataPlain);
         }
 
     }

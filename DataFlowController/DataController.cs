@@ -15,20 +15,26 @@ namespace Produce_WebApp.DataFlowController
 	{
 		//Access to tools to encrypt My model.
 		BfvEncryptor EncryptionTools;
+		BfvDecryptor DecryptionTools;
 		//used for encryption and decryption.
 		public FlowController()
 		{
 			//Create an instance of bfv Encryption
 			EncryptionTools = new BfvEncryptor();
+			(PublicKey,SecretKey) Keys = EncryptionTools.GetKeys();
+			//Begins an instance of Decrypto by passding in seal context and Secret Key.
+			DecryptionTools = new BfvDecryptor(EncryptionTools.context,Keys.Item2);
 		}
 
-		public void StartDataEncryption(UserDataModel UserDataPlain)
+		public void StartDataProcessing(UserDataModel UserDataPlain)
 		{
 			//The encrypted DataModel
-			var EncryptedDataModel = ProcessDataModel(UserDataPlain);
+			var EncryptedDataModel = EncryptDataModel(UserDataPlain);
+			//The Decrypted Data Model.
+			var userDataModel = DecryptDataModel(EncryptedDataModel);
 		}
 
-		public EncryptedDataModel ProcessDataModel(UserDataModel UserModel)
+		public EncryptedDataModel EncryptDataModel(UserDataModel UserModel)
 		{
 			//Takes in a UserDataModel and Returns an EncryptedDataModel.
 			EncryptedDataModel EncryptedData = new EncryptedDataModel();
@@ -36,6 +42,15 @@ namespace Produce_WebApp.DataFlowController
 
 			return EncryptedData;
 		}
+
+		public UserDataModel DecryptDataModel(EncryptedDataModel encryptedDataModel)
+		{
+			var userDataModel = DecryptionTools.DecryptEncryptedDataModel(encryptedDataModel);
+
+			return userDataModel;
+		}
+
+		
 
 		
 	}
