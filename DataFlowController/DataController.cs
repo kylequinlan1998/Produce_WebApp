@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-
+using Produce_WebApp.SecureComputationCenter;
 
 namespace Produce_WebApp.DataFlowController
 {
@@ -16,6 +16,7 @@ namespace Produce_WebApp.DataFlowController
 		//Access to tools to encrypt My model.
 		BfvEncryptor EncryptionTools;
 		BfvDecryptor DecryptionTools;
+		private SecureComputationController secureComputation;
 		//used for encryption and decryption.
 		public FlowController()
 		{
@@ -24,12 +25,14 @@ namespace Produce_WebApp.DataFlowController
 			(PublicKey,SecretKey) Keys = EncryptionTools.GetKeys();
 			//Begins an instance of Decrypto by passding in seal context and Secret Key.
 			DecryptionTools = new BfvDecryptor(EncryptionTools.context,Keys.Item2);
+			secureComputation = new SecureComputationController();
 		}
 
 		public void StartDataProcessing(UserDataModel UserDataPlain)
 		{
 			//The encrypted DataModel
 			var EncryptedDataModel = EncryptDataModel(UserDataPlain);
+			var intermediate = secureComputation.RunSecureComputation(EncryptedDataModel);
 			//The Decrypted Data Model.
 			var userDataModel = DecryptDataModel(EncryptedDataModel);
 		}

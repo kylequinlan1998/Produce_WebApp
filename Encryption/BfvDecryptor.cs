@@ -36,6 +36,7 @@ namespace Produce_WebApp.Encryption
 
 		public UserDataModel DecryptEncryptedDataModel(EncryptedDataModel encryptedDataModel)
 		{
+			//Takes in an EncryptedDataModel and Returns a UserDataModel.
 			UserDataModel userDataModel = new UserDataModel();
 			userDataModel.Breaks = DecryptInt(encryptedDataModel.Breaks);
 			userDataModel.Height = DecryptInt(encryptedDataModel.Height);
