@@ -10,7 +10,7 @@ namespace Produce_WebApp.ClientSideProcessing
 	{
 		private string Sleepmessage;
 		private string HydrationMessage;
-		private ClientDataComputation()
+		public ClientDataComputation()
 		{
 
 		}
@@ -50,6 +50,7 @@ namespace Produce_WebApp.ClientSideProcessing
 			{
 				HydrationMessage = "You are at the recommended level of water intake";
 				return 0;
+				
 			}
 
 			else
@@ -57,6 +58,12 @@ namespace Produce_WebApp.ClientSideProcessing
 				HydrationMessage = "You have consumed more than the recommended water levels. Be careful";
 				return 0;
 			}
+		}
+
+		public int DivideWeightByHeight(UserDataModel userData)
+		{
+			var value = Convert.ToInt32(userData.Weight / userData.Height);
+			return  value ;
 		}
 	}
 }

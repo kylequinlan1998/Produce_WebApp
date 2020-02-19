@@ -29,6 +29,7 @@ namespace Produce_WebApp
 
             }
             error = "working";
+            
             StartDataFlow();
 
             return RedirectToPage("/Index", new { city = UserDataPlain.Address });

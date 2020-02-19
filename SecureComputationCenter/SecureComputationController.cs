@@ -11,23 +11,27 @@ namespace Produce_WebApp.SecureComputationCenter
 	{
 		private HydrationComputation hydrationComputation;
 		private SleepComputation sleepComputation;
+		private BMIComputation bmiComputation;
 		public SecureComputationController()
 		{
 			hydrationComputation = new HydrationComputation();
 			sleepComputation = new SleepComputation();
+			bmiComputation = new BMIComputation();
 		}
 
 		public EncryptedDataModel RunSecureComputation(EncryptedDataModel encryptedDataModel)
 		{
 			//Takes in an encryptedDataModel and returns and EncryptedDataModel
 			//With Water computation complete.
-			EncryptedDataModel EncryptedResult = new EncryptedDataModel();
+			//EncryptedDataModel EncryptedResult = new EncryptedDataModel();
 			//Find the water deficit.
-			EncryptedResult.Water = hydrationComputation.DehydrationComputation(encryptedDataModel.Water);
+			encryptedDataModel.WaterProductivityLoss = hydrationComputation.DehydrationComputation(encryptedDataModel.Water);
 			//Find sleep deficit.
-			EncryptedResult.Sleep = sleepComputation.GetProductivityDeficit(encryptedDataModel.Sleep);
+			encryptedDataModel.SleepProductivityLoss = sleepComputation.GetProductivityDeficit(encryptedDataModel.Sleep);
 
-			return EncryptedResult;
+			//EncryptedResult.BMI = bmiComputation.GetHeightSquared(encryptedDataModel.Height);
+
+			return encryptedDataModel;
 		}
 	}
 }

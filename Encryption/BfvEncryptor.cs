@@ -69,6 +69,7 @@ namespace Produce_WebApp.Encryption
 			EncryptedData.Salary = EncryptData(userData.Salary);
 			EncryptedData.Water = EncryptData(userData.WaterPerDay);
 			EncryptedData.Breaks = EncryptData(userData.Breaks);
+			EncryptedData.BMI = EncryptData(userData.BMI);
 
 
 			return EncryptedData;

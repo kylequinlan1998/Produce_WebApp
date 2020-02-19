@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Produce_WebApp.SecureComputationCenter;
+using Produce_WebApp.ClientSideProcessing;
 
 namespace Produce_WebApp.DataFlowController
 {
@@ -17,6 +18,7 @@ namespace Produce_WebApp.DataFlowController
 		BfvEncryptor EncryptionTools;
 		BfvDecryptor DecryptionTools;
 		private SecureComputationController secureComputation;
+		private ClientDataComputation clientComputation;
 		//used for encryption and decryption.
 		public FlowController()
 		{
@@ -26,6 +28,7 @@ namespace Produce_WebApp.DataFlowController
 			//Begins an instance of Decrypto by passding in seal context and Secret Key.
 			DecryptionTools = new BfvDecryptor(EncryptionTools.context,Keys.Item2);
 			secureComputation = new SecureComputationController();
+			clientComputation = new ClientDataComputation();
 		}
 
 		public void StartDataProcessing(UserDataModel UserDataPlain)
@@ -34,7 +37,12 @@ namespace Produce_WebApp.DataFlowController
 			var EncryptedDataModel = EncryptDataModel(UserDataPlain);
 			var intermediate = secureComputation.RunSecureComputation(EncryptedDataModel);
 			//The Decrypted Data Model.
-			var userDataModel = DecryptDataModel(EncryptedDataModel);
+			var userDataModel = DecryptDataModel(intermediate);
+			//Pass the decrypted resuts to client side computation center.
+			//Bmi has the value of height squared at this point in the code.
+			//userDataModel.BMI = clientComputation.DivideWeightByHeight(userDataModel);
+
+			//userDataModel = DecryptDataModel(EncryptedDataModel);
 		}
 
 		public EncryptedDataModel EncryptDataModel(UserDataModel UserModel)

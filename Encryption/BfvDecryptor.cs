@@ -46,7 +46,7 @@ namespace Produce_WebApp.Encryption
 			userDataModel.WaterPerDay = DecryptInt(encryptedDataModel.Water);
 			userDataModel.Hours = DecryptInt(encryptedDataModel.HoursWeek);
 			userDataModel.Weight = DecryptInt(encryptedDataModel.Weight);
-
+			//userDataModel.BMI = DecryptInt(encryptedDataModel.BMI);
 			return userDataModel;
 		}
 	}
