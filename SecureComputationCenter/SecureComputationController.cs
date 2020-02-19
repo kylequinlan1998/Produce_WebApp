@@ -29,7 +29,7 @@ namespace Produce_WebApp.SecureComputationCenter
 			//Find sleep deficit.
 			encryptedDataModel.SleepProductivityLoss = sleepComputation.GetProductivityDeficit(encryptedDataModel.Sleep);
 
-			//EncryptedResult.BMI = bmiComputation.GetHeightSquared(encryptedDataModel.Height);
+			encryptedDataModel.BMI = bmiComputation.GetHeightSquared(encryptedDataModel.Height);
 
 			return encryptedDataModel;
 		}

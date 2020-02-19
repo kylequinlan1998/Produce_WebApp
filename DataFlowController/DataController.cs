@@ -40,7 +40,6 @@ namespace Produce_WebApp.DataFlowController
 			var userDataModel = DecryptDataModel(intermediate);
 			//Pass the decrypted resuts to client side computation center.
 			//Bmi has the value of height squared at this point in the code.
-			//userDataModel.BMI = clientComputation.DivideWeightByHeight(userDataModel);
 
 			//userDataModel = DecryptDataModel(EncryptedDataModel);
 		}

@@ -28,15 +28,18 @@ namespace Produce_WebApp.SecureComputationCenter
 
 		public Ciphertext GetHeightSquared(Ciphertext Height)
 		{
+			Ciphertext BMI = new Ciphertext();
 			//Take in encrypteed Height and
-			evaluator.SquareInplace(Height);
+			evaluator.Square(Height,BMI);
 
-			return Height;
+			return BMI;
 		}
 		private void SetConstants()
 		{
 			Encoded703 = encoder.Encode(703);
 		}
+
+		
 
 		public Ciphertext MultiplyBy703(Ciphertext WeightHeightDivided)
 		{

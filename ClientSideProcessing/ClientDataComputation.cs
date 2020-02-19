@@ -62,8 +62,7 @@ namespace Produce_WebApp.ClientSideProcessing
 
 		public int DivideWeightByHeight(UserDataModel userData)
 		{
-			var value = Convert.ToInt32(userData.Weight / userData.Height);
-			return  value ;
+			return userData.Weight / userData.Height;
 		}
 	}
 }
