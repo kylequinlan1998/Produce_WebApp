@@ -16,6 +16,8 @@ namespace Produce_WebApp.Models
 		public Ciphertext Salary { get; set; }
 		public Ciphertext HoursWeek { get; set; }
 		public Ciphertext Breaks { get; set; }
-
+		public Ciphertext SleepProductivityLoss { get; set; }
+		public Ciphertext WaterProductivityLoss { get; set; }
+		public Ciphertext BreaksProductivityLoss { get; set; }
 	}
 }

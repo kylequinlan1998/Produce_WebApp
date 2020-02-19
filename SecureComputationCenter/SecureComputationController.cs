@@ -9,18 +9,23 @@ namespace Produce_WebApp.SecureComputationCenter
 {
 	public class SecureComputationController
 	{
-		public HydrationComputation sleepComputation;
+		private HydrationComputation hydrationComputation;
+		private SleepComputation sleepComputation;
 		public SecureComputationController()
 		{
-			sleepComputation = new HydrationComputation();
+			hydrationComputation = new HydrationComputation();
+			sleepComputation = new SleepComputation();
 		}
 
-		public EncryptedDataModel RunSecureComputation(EncryptedDataModel EncryptedDataModel)
+		public EncryptedDataModel RunSecureComputation(EncryptedDataModel encryptedDataModel)
 		{
 			//Takes in an encryptedDataModel and returns and EncryptedDataModel
 			//With Water computation complete.
 			EncryptedDataModel EncryptedResult = new EncryptedDataModel();
-			EncryptedResult.Water = sleepComputation.DehydrationComputation(EncryptedDataModel.Water);
+			//Find the water deficit.
+			EncryptedResult.Water = hydrationComputation.DehydrationComputation(encryptedDataModel.Water);
+			//Find sleep deficit.
+			EncryptedResult.Sleep = sleepComputation.GetProductivityDeficit(encryptedDataModel.Sleep);
 
 			return EncryptedResult;
 		}

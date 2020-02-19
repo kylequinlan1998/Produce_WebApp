@@ -14,6 +14,7 @@ namespace Produce_WebApp.SecureComputationCenter
 		private SEALContext context;
 		public IntegerEncoder encoder;
 		public Evaluator evaluator;
+		private Plaintext negativeEight;
 
 		public SleepComputation()
 		{
@@ -24,11 +25,21 @@ namespace Produce_WebApp.SecureComputationCenter
 			context = new SEALContext(parms);
 			evaluator = new Evaluator(context);
 			encoder = new IntegerEncoder(context);
+			SetConstants();
 		}
 
-		public EncryptedDataModel GetProductivityDeficit()
+		public Ciphertext GetProductivityDeficit(Ciphertext sleepHours)
 		{
+			//Take 8 from the value to see if a minimum of eight hours sleep has been got.
+			evaluator.AddPlainInplace(sleepHours,negativeEight);
 
+			return sleepHours;
+		}
+
+		public void SetConstants()
+		{
+			//Find out if the correct number of hours have been slept
+			negativeEight = encoder.Encode(-8);
 		}
 	}
 }
