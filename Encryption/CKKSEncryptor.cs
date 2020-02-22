@@ -12,7 +12,7 @@ namespace Produce_WebApp.Encryption
 		EncryptionParameters parms;
 		ulong polyModulusDegree = 8192;
 		double scale;
-		SEALContext context;
+		public SEALContext context;
 		CKKSEncoder encoder;
 		Encryptor encryptor;
 		KeyGenerator keygen;
@@ -41,7 +41,7 @@ namespace Produce_WebApp.Encryption
 			Plaintext encoded = new Plaintext();
 			Ciphertext encrypted = new Ciphertext();
 
-			encoder.Encode(input, encoded);
+			encoder.Encode(input,scale, encoded);
 
 			encryptor.Encrypt(encoded, encrypted);
 
@@ -64,6 +64,11 @@ namespace Produce_WebApp.Encryption
 			encryptedDataModel.Weight = EncryptLong(userData.Weight);
 
 			return encryptedDataModel;
+		}
+
+		public (PublicKey,SecretKey) GetKeys()
+		{
+			return (keygen.PublicKey, keygen.SecretKey);
 		}
 	}
 }

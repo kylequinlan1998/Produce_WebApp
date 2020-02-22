@@ -15,36 +15,37 @@ namespace Produce_WebApp.DataFlowController
 	public class FlowController
 	{
 		//Access to tools to encrypt My model.
-		BfvEncryptor EncryptionTools;
-		BfvDecryptor DecryptionTools;
+		CKKSEncryptor EncryptionTools;
+		CKKSDecryptor DecryptionTools;
 		private SecureComputationController secureComputation;
 		private ClientDataComputation clientComputation;
 		//used for encryption and decryption.
 		public FlowController()
 		{
 			//Create an instance of bfv Encryption
-			EncryptionTools = new BfvEncryptor();
+			EncryptionTools = new CKKSEncryptor();
 			(PublicKey,SecretKey) Keys = EncryptionTools.GetKeys();
 			//Begins an instance of Decrypto by passding in seal context and Secret Key.
-			DecryptionTools = new BfvDecryptor(EncryptionTools.context,Keys.Item2);
+			DecryptionTools = new CKKSDecryptor(EncryptionTools.context,Keys.Item2);
 			secureComputation = new SecureComputationController();
 			clientComputation = new ClientDataComputation();
 		}
 
-		public void StartDataProcessing(UserDataModel UserDataPlain)
+		public void StartDataProcessing(InputDataModel UserDataPlain)
 		{
 			//The encrypted DataModel
 			var EncryptedDataModel = EncryptDataModel(UserDataPlain);
-			var intermediate = secureComputation.RunSecureComputation(EncryptedDataModel);
+			//var output = DecryptionTools.TestingDecrypt(EncryptedDataModel.Age);
+			//var intermediate = secureComputation.RunSecureComputation(EncryptedDataModel);
 			//The Decrypted Data Model.
-			var userDataModel = DecryptDataModel(intermediate);
+			var userDataModel = DecryptDataModel(EncryptedDataModel);
 			//Pass the decrypted resuts to client side computation center.
 			//Bmi has the value of height squared at this point in the code.
 
 			//userDataModel = DecryptDataModel(EncryptedDataModel);
 		}
 
-		public EncryptedDataModel EncryptDataModel(UserDataModel UserModel)
+		public EncryptedDataModel EncryptDataModel(InputDataModel UserModel)
 		{
 			//Takes in a UserDataModel and Returns an EncryptedDataModel.
 			EncryptedDataModel EncryptedData = new EncryptedDataModel();
@@ -53,9 +54,10 @@ namespace Produce_WebApp.DataFlowController
 			return EncryptedData;
 		}
 
-		public UserDataModel DecryptDataModel(EncryptedDataModel encryptedDataModel)
+		public List<double> DecryptDataModel(EncryptedDataModel encryptedDataModel)
 		{
-			var userDataModel = DecryptionTools.DecryptEncryptedDataModel(encryptedDataModel);
+			//Takes in an encryptedDataModel and returns a List of Doubles.
+			var userDataModel = DecryptionTools.DecryptModel(encryptedDataModel);
 
 			return userDataModel;
 		}

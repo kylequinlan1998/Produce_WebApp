@@ -13,7 +13,7 @@ namespace Produce_WebApp
     public class userData : PageModel
     {
         [BindProperty]
-        public UserDataModel UserDataPlain { get; set; }
+        public InputDataModel UserDataPlain { get; set; }
         public FlowController controller;
         public string error = "";
         
