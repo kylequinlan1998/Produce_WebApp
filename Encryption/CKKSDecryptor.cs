@@ -31,15 +31,15 @@ namespace Produce_WebApp.Encryption
 			List<double> doubleList = new List<double>(9);
 
 			//Decrypt to Plaintext.
-			doubleList[0] = PrepareModel(encryptedDataModel.Age);
-			doubleList[1] = PrepareModel(encryptedDataModel.BMI);
-			doubleList[2] = PrepareModel(encryptedDataModel.Breaks);
-			doubleList[3] = PrepareModel(encryptedDataModel.Height);
-			doubleList[4] = PrepareModel(encryptedDataModel.Weight);
-			doubleList[5] = PrepareModel(encryptedDataModel.Water);
-			doubleList[6] = PrepareModel(encryptedDataModel.Sleep);
-			doubleList[7] = PrepareModel(encryptedDataModel.HoursWeek);
-			doubleList[8] = PrepareModel(encryptedDataModel.Salary);
+			doubleList.Add(PrepareModel(encryptedDataModel.Age));
+			//doubleList.Add(PrepareModel(encryptedDataModel.BMI));
+			doubleList.Add(PrepareModel(encryptedDataModel.Breaks));
+			doubleList.Add(PrepareModel(encryptedDataModel.Height));
+			doubleList.Add(PrepareModel(encryptedDataModel.Weight));
+			doubleList.Add(PrepareModel(encryptedDataModel.Water));
+			doubleList.Add(PrepareModel(encryptedDataModel.Sleep));
+			doubleList.Add(PrepareModel(encryptedDataModel.HoursWeek));
+			doubleList.Add(PrepareModel(encryptedDataModel.Salary));
 
 			return doubleList;
 		}
@@ -53,8 +53,10 @@ namespace Produce_WebApp.Encryption
 			decryptor.Decrypt(cipherInput,decoded);
 			
 			encoder.Decode(decoded, doubleList);
+			double decode;
+			decode = doubleList.First();
 			//Failing here
-			return doubleList[1];
+			return decode;
 		}
 
 		public double TestingDecrypt(Ciphertext cipher)

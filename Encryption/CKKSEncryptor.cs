@@ -25,7 +25,7 @@ namespace Produce_WebApp.Encryption
 			parms.PolyModulusDegree = polyModulusDegree;
 			parms.CoeffModulus = CoeffModulus.Create(
 				polyModulusDegree, new int[] { 60, 40, 40, 60 });
-			scale = Math.Pow(2.0, 40);
+			scale = Math.Pow(2.0, 30);
 			context = new SEALContext(parms);
 			keygen = new KeyGenerator(context);
 			//Generate private and public key.

@@ -16,6 +16,7 @@ namespace Produce_WebApp.SecureComputationCenter
 		public ulong polyModulusDegree = 8192;
 		public SEALContext context;
 		Plaintext negativeSix;
+		double scale = Math.Pow(2.0,30);
 		public HydrationComputation()
 		{
 			//Create evaluator and encoder using a new context.
