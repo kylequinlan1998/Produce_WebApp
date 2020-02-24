@@ -22,8 +22,11 @@ namespace Produce_WebApp.SecureComputationCenter
 		public EncryptedDataModel RunSecureComputation(EncryptedDataModel encryptedDataModel)
 		{
 			
-			//Find sleep deficit.
+			//Find sleep deficit and store in SleepProductivityLoss attribute of the cnryptedDataModel structure.
 			encryptedDataModel.SleepProductivityLoss = sleepComputation.GetProductivityDeficit(encryptedDataModel.Sleep);
+
+			//Hydration Computation.
+			encryptedDataModel.WaterProductivityLoss = hydrationComputation.DehydrationComputation(encryptedDataModel.Water);
 
 			return encryptedDataModel;
 		}
