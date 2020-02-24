@@ -21,15 +21,9 @@ namespace Produce_WebApp.SecureComputationCenter
 
 		public EncryptedDataModel RunSecureComputation(EncryptedDataModel encryptedDataModel)
 		{
-			//Takes in an encryptedDataModel and returns and EncryptedDataModel
-			//With Water computation complete.
-			//EncryptedDataModel EncryptedResult = new EncryptedDataModel();
-			//Find the water deficit.
-			encryptedDataModel.WaterProductivityLoss = hydrationComputation.DehydrationComputation(encryptedDataModel.Water);
+			
 			//Find sleep deficit.
 			encryptedDataModel.SleepProductivityLoss = sleepComputation.GetProductivityDeficit(encryptedDataModel.Sleep);
-
-			encryptedDataModel.BMI = bmiComputation.GetHeightSquared(encryptedDataModel.Height);
 
 			return encryptedDataModel;
 		}

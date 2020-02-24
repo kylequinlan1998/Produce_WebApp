@@ -18,7 +18,7 @@ namespace Produce_WebApp.Encryption
 		{
 			//Takes in a context and private key and creates instance of decoder and Context.
 			context = Context;
-			scale = Math.Pow(2.0, 30);
+			scale = Math.Pow(2.0, 40);
 			decryptor = new Decryptor(Context, privateKey);
 			encoder = new CKKSEncoder(Context);
 		}
@@ -26,8 +26,6 @@ namespace Produce_WebApp.Encryption
 		public List<double> DecryptModel(EncryptedDataModel encryptedDataModel)
 		{
 			//Takes in a Ciphertext and returns a List of Plaintext.
-			Plaintext decrypted = new Plaintext();
-			UserDataModel userData = new UserDataModel();
 			List<double> doubleList = new List<double>(9);
 
 			//Decrypt to Plaintext.
@@ -40,6 +38,7 @@ namespace Produce_WebApp.Encryption
 			doubleList.Add(PrepareModel(encryptedDataModel.Sleep));
 			doubleList.Add(PrepareModel(encryptedDataModel.HoursWeek));
 			doubleList.Add(PrepareModel(encryptedDataModel.Salary));
+			doubleList.Add(PrepareModel(encryptedDataModel.SleepProductivityLoss));
 
 			return doubleList;
 		}

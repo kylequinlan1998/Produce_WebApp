@@ -35,10 +35,13 @@ namespace Produce_WebApp.DataFlowController
 		{
 			//The encrypted DataModel
 			var EncryptedDataModel = EncryptDataModel(UserDataPlain);
-			//var output = DecryptionTools.TestingDecrypt(EncryptedDataModel.Age);
-			//var intermediate = secureComputation.RunSecureComputation(EncryptedDataModel);
-			//The Decrypted Data Model.
-			var userDataModel = DecryptDataModel(EncryptedDataModel);
+
+			//The Model with secure computation performed.
+			var intermediate = secureComputation.RunSecureComputation(EncryptedDataModel);
+
+			//The decrypted List of doubles after performing computatio.
+			var DecryptdListOfDoubles = DecryptDataModel(intermediate);
+
 			//Pass the decrypted resuts to client side computation center.
 			//Bmi has the value of height squared at this point in the code.
 
@@ -57,13 +60,9 @@ namespace Produce_WebApp.DataFlowController
 		public List<double> DecryptDataModel(EncryptedDataModel encryptedDataModel)
 		{
 			//Takes in an encryptedDataModel and returns a List of Doubles.
-			var userDataModel = DecryptionTools.DecryptModel(encryptedDataModel);
+			var DoubleList = DecryptionTools.DecryptModel(encryptedDataModel);
 
-			return userDataModel;
+			return DoubleList;
 		}
-
-		
-
-		
 	}
 }

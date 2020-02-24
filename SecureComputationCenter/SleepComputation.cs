@@ -12,34 +12,44 @@ namespace Produce_WebApp.SecureComputationCenter
 		private EncryptionParameters parms;
 		private ulong polyModulusDegree = 8192;
 		private SEALContext context;
-		public IntegerEncoder encoder;
+		public CKKSEncoder encoder;
 		public Evaluator evaluator;
 		private Plaintext negativeEight;
+		double scale;
 
 		public SleepComputation()
 		{
-			parms = new EncryptionParameters(SchemeType.BFV);
+			parms = new EncryptionParameters(SchemeType.CKKS);
 			parms.PolyModulusDegree = polyModulusDegree;
-			parms.CoeffModulus = CoeffModulus.BFVDefault(polyModulusDegree);
-			parms.PlainModulus = PlainModulus.Batching(polyModulusDegree, 20);
+			parms.CoeffModulus = CoeffModulus.Create(
+				polyModulusDegree, new int[] { 60, 40, 40, 60 });
+			//parms.PlainModulus = PlainModulus.Batching(polyModulusDegree, 20);
 			context = new SEALContext(parms);
 			evaluator = new Evaluator(context);
-			encoder = new IntegerEncoder(context);
+			encoder = new CKKSEncoder(context);
+			//Set the scale of the encryption.
+			scale = Math.Pow(2, 40);
 			SetConstants();
 		}
 
 		public Ciphertext GetProductivityDeficit(Ciphertext sleepHours)
 		{
 			//Take 8 from the value to see if a minimum of eight hours sleep has been got.
-			evaluator.AddPlainInplace(sleepHours,negativeEight);
+			Ciphertext CipherResult = new Ciphertext();
+			evaluator.AddPlain(sleepHours,negativeEight,CipherResult);
 
-			return sleepHours;
+			return CipherResult;
 		}
+
+		
 
 		public void SetConstants()
 		{
 			//Find out if the correct number of hours have been slept
-			negativeEight = encoder.Encode(-8);
+			negativeEight = new Plaintext();
+			List<double> resultList = new List<double>();
+			//Encode negative 8 using the CKKS scheme.
+			encoder.Encode(-8,scale,negativeEight);
 		}
 	}
 }
