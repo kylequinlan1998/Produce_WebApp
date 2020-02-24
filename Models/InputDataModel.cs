@@ -18,5 +18,6 @@ namespace Produce_WebApp.Models
 			public long Salary { get; set; }
 			public long Hours { get; set; }
 			public long BMI { get; set; }
+		    public long HeightOverOne { get; set; }
 		}
 	}

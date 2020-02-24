@@ -18,6 +18,7 @@ namespace Produce_WebApp.Encryption
 		KeyGenerator keygen;
 		PublicKey publicKey;
 		SecretKey secretKey;
+		RelinKeys KeysRelin;
 		public CKKSEncryptor()
 		{
 			//Set scheme Primes and encryption parameters.
@@ -33,6 +34,7 @@ namespace Produce_WebApp.Encryption
 			secretKey = keygen.SecretKey;
 			encryptor = new Encryptor(context, publicKey);
 			encoder = new CKKSEncoder(context);
+			KeysRelin = keygen.RelinKeys();
 		}
 
 		public Ciphertext EncryptLong(long input)

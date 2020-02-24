@@ -28,6 +28,7 @@ namespace Produce_WebApp.SecureComputationCenter
 			//Hydration Computation.
 			encryptedDataModel.WaterProductivityLoss = hydrationComputation.DehydrationComputation(encryptedDataModel.Water);
 
+			encryptedDataModel.BMI = bmiComputation.ComputeBMI(encryptedDataModel.Height, encryptedDataModel.Weight);
 			return encryptedDataModel;
 		}
 	}

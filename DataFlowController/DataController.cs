@@ -19,6 +19,7 @@ namespace Produce_WebApp.DataFlowController
 		CKKSDecryptor DecryptionTools;
 		private SecureComputationController secureComputation;
 		private ClientDataComputation clientComputation;
+		private ClientDataPreProcessor preprocessor;
 		//used for encryption and decryption.
 		public FlowController()
 		{
@@ -29,10 +30,13 @@ namespace Produce_WebApp.DataFlowController
 			DecryptionTools = new CKKSDecryptor(EncryptionTools.context,Keys.Item2);
 			secureComputation = new SecureComputationController();
 			clientComputation = new ClientDataComputation();
+			preprocessor = new ClientDataPreProcessor();
 		}
 
 		public void StartDataProcessing(InputDataModel UserDataPlain)
 		{
+			var UpdateHeight = preprocessor.HeightCalc(UserDataPlain.Height);
+			UserDataPlain.HeightOverOne = UpdateHeight;
 			//The encrypted DataModel
 			var EncryptedDataModel = EncryptDataModel(UserDataPlain);
 
