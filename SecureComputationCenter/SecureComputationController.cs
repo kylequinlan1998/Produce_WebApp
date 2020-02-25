@@ -12,11 +12,13 @@ namespace Produce_WebApp.SecureComputationCenter
 		private HydrationComputation hydrationComputation;
 		private SleepComputation sleepComputation;
 		private BMIComputation bmiComputation;
+		private SalaryComputation salaryComputation;
 		public SecureComputationController()
 		{
 			hydrationComputation = new HydrationComputation();
 			sleepComputation = new SleepComputation();
 			bmiComputation = new BMIComputation();
+			salaryComputation = new SalaryComputation();
 		}
 
 		public EncryptedDataModel RunSecureComputation(EncryptedDataModel encryptedDataModel)
@@ -28,6 +30,7 @@ namespace Produce_WebApp.SecureComputationCenter
 			//Hydration Computation.
 			encryptedDataModel.WaterProductivityLoss = hydrationComputation.DehydrationComputation(encryptedDataModel.Water);
 
+			encryptedDataModel.WeeklySalary = salaryComputation.GetWeeklySalary(encryptedDataModel.Salary);
 			//BMI not working throwing error.
 			//encryptedDataModel.BMI = bmiComputation.ComputeBMI(encryptedDataModel.Height, encryptedDataModel.Weight);
 			return encryptedDataModel;

@@ -38,9 +38,9 @@ namespace Produce_WebApp.Encryption
 			doubleList.Add(PrepareModel(encryptedDataModel.Sleep));
 			doubleList.Add(PrepareModel(encryptedDataModel.HoursWeek));
 			doubleList.Add(PrepareModel(encryptedDataModel.Salary));
-			//Keeps returning 11.
 			doubleList.Add(PrepareModel(encryptedDataModel.SleepProductivityLoss));
 			doubleList.Add(PrepareModel(encryptedDataModel.WaterProductivityLoss));
+			doubleList.Add(PrepareModel(encryptedDataModel.WeeklySalary));
 
 			return doubleList;
 		}

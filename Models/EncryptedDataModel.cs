@@ -20,5 +20,7 @@ namespace Produce_WebApp.Models
 		public Ciphertext WaterProductivityLoss { get; set; }
 		public Ciphertext BreaksProductivityLoss { get; set; }
 		public Ciphertext BMI { get; set; }
+
+		public Ciphertext WeeklySalary { get; set; }
 	}
 }

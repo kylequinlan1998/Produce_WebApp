@@ -53,7 +53,6 @@ namespace Produce_WebApp.Encryption
 		public EncryptedDataModel EncryptModel(InputDataModel userData)
 		{
 			//Takes in a UserDataModel and returns an EncryptedDataModel.
-			//List<double> outputList = new List<double>(1);
 			EncryptedDataModel encryptedDataModel = new EncryptedDataModel();
 			encryptedDataModel.Age = EncryptLong(userData.Age);
 			encryptedDataModel.BMI = EncryptLong(userData.BMI);
