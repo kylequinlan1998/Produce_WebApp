@@ -12,10 +12,10 @@ namespace Produce_WebApp.ClientSideProcessing
 			//Constructor.
 		}
 
-		public long HeightCalc(long height)
+		public double HeightCalc(long height)
 		{
-			long result;
-			result = (long)(1 / height);
+			double result;
+			result = (double)1 / (double)height;
 
 			return result;
 		}

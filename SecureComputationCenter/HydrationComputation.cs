@@ -1,8 +1,5 @@
 ﻿using Microsoft.Research.SEAL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Produce_WebApp.SecureComputationCenter
 {
@@ -15,8 +12,8 @@ namespace Produce_WebApp.SecureComputationCenter
 		public EncryptionParameters parms;
 		public ulong polyModulusDegree = 8192;
 		public SEALContext context;
-		Plaintext negativeSix;
-		double scale = Math.Pow(2.0,40);
+		public Plaintext negativeSix;
+		double scale = Math.Pow(2.0, 40);
 		public HydrationComputation()
 		{
 			//Create evaluator and encoder using a new context.
@@ -38,7 +35,7 @@ namespace Produce_WebApp.SecureComputationCenter
 			//Must be greater or equal to 6 to check correct amount of water drank.
 			Ciphertext HydrationCipherResult = new Ciphertext();
 
-			evaluator.AddPlain(WaterEncrypted, negativeSix,HydrationCipherResult);
+			evaluator.AddPlain(WaterEncrypted, negativeSix, HydrationCipherResult);
 
 			return HydrationCipherResult;
 		}
@@ -48,7 +45,7 @@ namespace Produce_WebApp.SecureComputationCenter
 			//Encodes negative six and stores in variable negativeSix.
 			negativeSix = new Plaintext();
 
-			encoder.Encode(-6,scale, negativeSix);
+			encoder.Encode(-6, scale, negativeSix);
 		}
 
 

@@ -9,13 +9,13 @@ namespace Produce_WebApp.SecureComputationCenter
 {
 	public class SleepComputation
 	{
-		private EncryptionParameters parms;
-		private ulong polyModulusDegree = 8192;
-		private SEALContext context;
+		public EncryptionParameters parms;
+		public ulong polyModulusDegree = 8192;
+		public SEALContext context;
 		public CKKSEncoder encoder;
 		public Evaluator evaluator;
-		private Plaintext negativeEight;
-		double scale;
+		public Plaintext negativeEight;
+		double scale = Math.Pow(2.0, 40);
 
 		public SleepComputation()
 		{
@@ -28,7 +28,7 @@ namespace Produce_WebApp.SecureComputationCenter
 			evaluator = new Evaluator(context);
 			encoder = new CKKSEncoder(context);
 			//Set the scale of the encryption.
-			scale = Math.Pow(2, 40);
+			
 			SetConstants();
 		}
 
@@ -47,7 +47,7 @@ namespace Produce_WebApp.SecureComputationCenter
 		{
 			//Find out if the correct number of hours have been slept
 			negativeEight = new Plaintext();
-			List<double> resultList = new List<double>();
+
 			//Encode negative 8 using the CKKS scheme.
 			encoder.Encode(-8,scale,negativeEight);
 		}

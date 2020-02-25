@@ -26,11 +26,11 @@ namespace Produce_WebApp.Encryption
 		public List<double> DecryptModel(EncryptedDataModel encryptedDataModel)
 		{
 			//Takes in a Ciphertext and returns a List of Plaintext.
-			List<double> doubleList = new List<double>(9);
+			List<double> doubleList = new List<double>();
 
 			//Decrypt to Plaintext.
 			doubleList.Add(PrepareModel(encryptedDataModel.Age));
-			//doubleList.Add(PrepareModel(encryptedDataModel.BMI));
+			doubleList.Add(PrepareModel(encryptedDataModel.BMI));
 			doubleList.Add(PrepareModel(encryptedDataModel.Breaks));
 			doubleList.Add(PrepareModel(encryptedDataModel.Height));
 			doubleList.Add(PrepareModel(encryptedDataModel.Weight));
@@ -38,6 +38,7 @@ namespace Produce_WebApp.Encryption
 			doubleList.Add(PrepareModel(encryptedDataModel.Sleep));
 			doubleList.Add(PrepareModel(encryptedDataModel.HoursWeek));
 			doubleList.Add(PrepareModel(encryptedDataModel.Salary));
+			//Keeps returning 11.
 			doubleList.Add(PrepareModel(encryptedDataModel.SleepProductivityLoss));
 			doubleList.Add(PrepareModel(encryptedDataModel.WaterProductivityLoss));
 
@@ -58,24 +59,5 @@ namespace Produce_WebApp.Encryption
 			//Failing here
 			return decode;
 		}
-
-		public double TestingDecrypt(Ciphertext cipher)
-		{
-			Plaintext plain = new Plaintext();
-			//Decrypt the data to a plaintext.
-			decryptor.Decrypt(cipher, plain);
-			List<double> test = new List<double>();
-			encoder.Decode(plain, test);
-			Debug.WriteLine(test[0]);
-
-			return test[0];
-		}
-
-            
-
-	 
-
-
-
      }
 }

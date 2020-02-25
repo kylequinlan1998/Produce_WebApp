@@ -59,9 +59,9 @@ namespace Produce_WebApp.Encryption
 			encryptedDataModel.BMI = EncryptLong(userData.BMI);
 			encryptedDataModel.Breaks = EncryptLong(userData.Breaks);
 			encryptedDataModel.Height = EncryptLong(userData.Height);
-			encryptedDataModel.HoursWeek = EncryptLong(userData.Age);
-			encryptedDataModel.Salary = EncryptLong(userData.Age);
-			encryptedDataModel.Sleep = EncryptLong(userData.Age);
+			encryptedDataModel.HoursWeek = EncryptLong(userData.Hours);
+			encryptedDataModel.Salary = EncryptLong(userData.Salary);
+			encryptedDataModel.Sleep = EncryptLong(userData.Sleep);
 			encryptedDataModel.Water = EncryptLong(userData.WaterPerDay);
 			encryptedDataModel.Weight = EncryptLong(userData.Weight);
 

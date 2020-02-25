@@ -13,8 +13,7 @@ namespace Produce_WebApp.SecureComputationCenter
 		private SEALContext context;
 		public CKKSEncoder encoder;
 		public Evaluator evaluator;
-		private Plaintext Encoded703;
-		private Plaintext OneOver52;
+		public Plaintext Encoded703;
 		double scale;
 		RelinKeys KeysRelin;
 		public BMIComputation()
@@ -36,11 +35,11 @@ namespace Produce_WebApp.SecureComputationCenter
 			Ciphertext HeightSquared = GetHeightSquared(Height);
 			Ciphertext result = new Ciphertext();
 
-			Ciphertext WeightHeightDivided = MultiplyHeightByWeightSquared(Weight, HeightSquared);
+			Ciphertext WeightHeightDivided = MultiplyWeightByHeightSquared(Weight, HeightSquared);
 
-			result = MultiplyBy703(WeightHeightDivided);
+			//result = MultiplyBy703(WeightHeightDivided);
 
-			return result;
+			return WeightHeightDivided;
 		}
 		private void SetConstants()
 		{
@@ -57,20 +56,21 @@ namespace Produce_WebApp.SecureComputationCenter
 			return BMI;
 		}
 
-		public Ciphertext MultiplyHeightByWeightSquared(Ciphertext weight,Ciphertext heightsquared)
+		public Ciphertext MultiplyWeightByHeightSquared(Ciphertext weight,Ciphertext heightsquared)
 		{
-			Ciphertext HeightDivWeightSquared = new Ciphertext();
-			evaluator.Multiply(weight, heightsquared, HeightDivWeightSquared);
+			Ciphertext WeightByHeightSquared = new Ciphertext();
+			evaluator.Multiply(weight, heightsquared, WeightByHeightSquared);
 			//Need to find a solution for this.
 
-			return HeightDivWeightSquared;
+			return WeightByHeightSquared;
 		}
 		public Ciphertext MultiplyBy703(Ciphertext WeightHeightDivided)
 		{
+			Ciphertext result = new Ciphertext();
 			//Takes in the weight/lbs and multiplies by 703 to get bmi.
-			evaluator.MultiplyPlainInplace(WeightHeightDivided, Encoded703);
+			evaluator.MultiplyPlain(WeightHeightDivided, Encoded703,result);
 
-			return WeightHeightDivided;
+			return result;
 		}
 	}
 }
