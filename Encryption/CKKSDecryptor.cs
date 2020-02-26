@@ -41,6 +41,8 @@ namespace Produce_WebApp.Encryption
 			doubleList.Add(PrepareModel(encryptedDataModel.SleepProductivityLoss));
 			doubleList.Add(PrepareModel(encryptedDataModel.WaterProductivityLoss));
 			doubleList.Add(PrepareModel(encryptedDataModel.WeeklySalary));
+			Debug.WriteLine(decryptor.InvariantNoiseBudget(encryptedDataModel.TotalSittingTime));
+			doubleList.Add(PrepareModel(encryptedDataModel.TotalSittingTime));
 
 			return doubleList;
 		}
