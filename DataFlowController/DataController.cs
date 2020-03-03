@@ -28,7 +28,7 @@ namespace Produce_WebApp.DataFlowController
 			(PublicKey,SecretKey) Keys = EncryptionTools.GetKeys();
 			//Begins an instance of Decrypto by passding in seal context and Secret Key.
 			DecryptionTools = new CKKSDecryptor(EncryptionTools.context,Keys.Item2);
-			secureComputation = new SecureComputationController();
+			secureComputation = new SecureComputationController(EncryptionTools.KeysRelin);
 			clientComputation = new ClientDataComputation();
 			preprocessor = new ClientDataPreProcessor();
 		}

@@ -22,5 +22,6 @@ namespace Produce_WebApp.Models
 		public Ciphertext BMI { get; set; }
 		public Ciphertext WeeklySalary { get; set; }
 		public Ciphertext TotalSittingTime { get; set; }
+		public Ciphertext HeightOverOne { get; internal set; }
 	}
 }

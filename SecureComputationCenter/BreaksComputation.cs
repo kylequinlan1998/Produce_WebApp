@@ -18,7 +18,9 @@ namespace Produce_WebApp.SecureComputationCenter
 		public Plaintext FiveMinuteBreak;
 		public Plaintext Hour;
 		public Plaintext DivideByFive;
-		public BreaksComputation()
+		public RelinKeys keys;
+		public Plaintext one;
+		public BreaksComputation(RelinKeys Keys)
 		{
 			parms = new EncryptionParameters(SchemeType.CKKS);
 			parms.PolyModulusDegree = polyModulusDegree;
@@ -29,9 +31,32 @@ namespace Produce_WebApp.SecureComputationCenter
 			evaluator = new Evaluator(context);
 			encoder = new CKKSEncoder(context);
 			SetConstants();
+			keys = Keys;
 		}
 
 		public void SetConstants()
+		{
+			FiveMinuteBreak = new Plaintext();
+			encoder.Encode(5.0,scale,FiveMinuteBreak);
+
+			Hour = new Plaintext();
+			encoder.Encode(60, scale, Hour);
+
+			one = new Plaintext();
+			encoder.Encode(1, scale, one);
+		}
+
+		public Ciphertext GetBreaks(Ciphertext Breaks)
+		{
+			//Create a Ciphertext to store the output.
+			Ciphertext totalBreakTime = new Ciphertext();
+			//This is working.
+			evaluator.MultiplyPlain(Breaks, FiveMinuteBreak,totalBreakTime);
+
+			return totalBreakTime;
+		}
+
+		/*public void SetConstants()
 		{
 			FiveMinuteBreak = new Plaintext();
 			Hour = new Plaintext();
@@ -45,81 +70,33 @@ namespace Produce_WebApp.SecureComputationCenter
 		{
 			Ciphertext totalBreakTime = new Ciphertext();
 			Ciphertext totalSittingTime = new Ciphertext();
-			Ciphertext DailyMinutes = new Ciphertext();
+			Ciphertext DailyHours = new Ciphertext();
 			Ciphertext result = new Ciphertext();
-			//Multiply number of breaks by 5 minutes to get total duration in minutes.
-			//also adds the Hour lunch break.
-			//--------------------------------------------------------------------
-			/*Debug.WriteLine("5min break scale before multiply.");
-			Debug.WriteLine(Math.Log(FiveMinuteBreak.Scale, newBase: 2));
-			Debug.WriteLine("Breaks before multiply.");
-			Debug.WriteLine(Math.Log(Breaks.Scale, newBase: 2));
-
-			Debug.WriteLine("total Breaks before after multiply.");
-			Debug.WriteLine(Math.Log(totalBreakTime.Scale, newBase: 2));
-			//TotalBreakTime is a result of amultiplication operation.
-			*/
-			//Breaks and FiveMinuteBreak both at a scale of 40 Here.
-			//TotalBreak Time does not have a value so scale of 0.
+			
 			//----------------------------------------------------------------------
+			//Scale of 80.
 			evaluator.MultiplyPlain(Breaks, FiveMinuteBreak, totalBreakTime);
 
 
-			Debug.WriteLine("---------------------------------------");
-			Debug.WriteLine("total Breaks scale after multiply.");
-			//totalBreakTime has a scale of 80 Here.
-			Debug.WriteLine(Math.Log(totalBreakTime.Scale, newBase: 2));
 
-			Debug.WriteLine("Breaks scale");
-			Debug.WriteLine(Math.Log(Breaks.Scale, newBase: 2));
-			Debug.WriteLine("Hour scale");
-			Debug.WriteLine(Math.Log(Hour.Scale, newBase: 2));
-			Debug.WriteLine("result scale");
-			Debug.WriteLine(Math.Log(result.Scale, newBase: 2));
-
-
-			//Code breaking here.
-			//Breaks scale is 40 Here.,Hour -> 40
-			Debug.WriteLine("-----------------------------------------------------------------");
 			//Being stored in Breaks now.
-
 			evaluator.AddPlainInplace(Breaks, Hour);
 			//Breaks stores total time on break.
-			DailyMinutes = GetDailyMinutes(HoursPerWeek);
+
+			//scale of 80.
+			DailyHours = GetDailyHours(HoursPerWeek);
 			
 
-			//Subtracts break and lunch time from daily Hours and  stores
-			//In TotalsittingTime.
-			Debug.WriteLine("---------------------------------------------------------------------");
-			Debug.WriteLine("DailyMins scale before sub");
-			Debug.WriteLine(DailyMinutes.Scale);
-
-			Debug.WriteLine("totalBreakTime scale before sub");
-			Debug.WriteLine(totalBreakTime.Scale);
-
-			Debug.WriteLine("totalsittingtime scale before sub");
-			Debug.WriteLine(totalSittingTime.Scale);
-			DailyMinutes.Scale = Math.Pow(2.0, 40);
+			DailyHours.Scale = Math.Pow(2.0, 40);
 			totalBreakTime.Scale = Math.Pow(2.0, 40);
 
-			Debug.WriteLine("--------------------------------------------------");
-			Debug.WriteLine("DailyMinutes Level");
-			Debug.WriteLine(context.GetContextData(DailyMinutes.ParmsId).ChainIndex);
-			evaluator.ModSwitchToNextInplace(totalBreakTime);
-			Debug.WriteLine("totalBreakTime Level");
-			Debug.WriteLine(context.GetContextData(totalBreakTime.ParmsId).ChainIndex);
-			Debug.WriteLine("DailyMins scale before sub");
-			Debug.WriteLine(DailyMinutes.Scale);
+			evaluator.SubInplace(DailyHours, totalBreakTime);
 
-			Debug.WriteLine("totalBreakTime scale before sub");
-			Debug.WriteLine(totalBreakTime.Scale);
-			evaluator.SubInplace(DailyMinutes, totalBreakTime);
-			//evaluator.Sub()
-			return totalBreakTime;
+			return DailyHours; ;
 
-			/*ParmsId lastParmsId = x3Encrypted.ParmsId;
+			ParmsId lastParmsId = x3Encrypted.ParmsId;
 			evaluator.ModSwitchToInplace(x1Encrypted, lastParmsId);
-			evaluator.ModSwitchToInplace(plainCoeff0, lastParmsId);*/
+			evaluator.ModSwitchToInplace(plainCoeff0, lastParmsId);
 		}
 
 		public Ciphertext GetDailyHours(Ciphertext HoursPerWeek)
@@ -127,14 +104,14 @@ namespace Produce_WebApp.SecureComputationCenter
 			//Takes in weekly Hours and Divides by 5.
 			Ciphertext DailyHours = new Ciphertext();
 
-			//Multiplication 1
+			//Returns DailyHours with a scale of ^80.
 			evaluator.MultiplyPlain(HoursPerWeek, DivideByFive, DailyHours);
 
 			
 			return DailyHours;
 		}
 
-		public Ciphertext GetDailyMinutes(Ciphertext HoursPerWeek)
+		/*public Ciphertext GetDailyMinutes(Ciphertext HoursPerWeek)
 		{
 			//Takes in Hours per week and converts it to minutes per day.
 			Ciphertext DailyHours = new Ciphertext();
@@ -149,6 +126,6 @@ namespace Produce_WebApp.SecureComputationCenter
 			//Rescaling the Result of multipling HoursPerWeek.
 			evaluator.RescaleToNextInplace(DailyMinutes);
 			return DailyMinutes;
-		}
+		}*/
 	}
 }

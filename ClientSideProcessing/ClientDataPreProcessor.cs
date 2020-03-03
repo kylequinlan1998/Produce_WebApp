@@ -17,7 +17,7 @@ namespace Produce_WebApp.ClientSideProcessing
 			double result;
 			result = (double)1 / (double)height;
 
-			return result;
+			return Math.Pow(result, 2);
 		}
 	}
 }

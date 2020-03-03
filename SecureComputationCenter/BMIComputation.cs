@@ -1,6 +1,7 @@
 ﻿using Microsoft.Research.SEAL;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace Produce_WebApp.SecureComputationCenter
 		public Plaintext Encoded703;
 		double scale;
 		RelinKeys KeysRelin;
-		public BMIComputation()
+		public BMIComputation(RelinKeys Keys)
 		{
 			parms = new EncryptionParameters(SchemeType.CKKS);
 			parms.PolyModulusDegree = polyModulusDegree;
@@ -28,18 +29,20 @@ namespace Produce_WebApp.SecureComputationCenter
 			encoder = new CKKSEncoder(context);
 			scale = Math.Pow(2.0, 40);
 			SetConstants();
+			KeysRelin = Keys;
 		}
 
-		public Ciphertext ComputeBMI(Ciphertext Height,Ciphertext Weight)
+		public Ciphertext ComputeBMI(Ciphertext HeightOverOneSquared,Ciphertext Weight)
 		{
-			Ciphertext HeightSquared = GetHeightSquared(Height);
-			Ciphertext result = new Ciphertext();
+			Ciphertext weightHeightMultiplied = new Ciphertext();
+			//Scale of 80 i think.
+			weightHeightMultiplied = MultiplyWeightByHeightSquared(Weight, HeightOverOneSquared);
+			Ciphertext finalResult = new Ciphertext();
 
-			Ciphertext WeightHeightDivided = MultiplyWeightByHeightSquared(Weight, HeightSquared);
+			finalResult = MultiplyBy703(weightHeightMultiplied);
 
-			//result = MultiplyBy703(WeightHeightDivided);
-
-			return WeightHeightDivided;
+			return finalResult;
+			
 		}
 		private void SetConstants()
 		{
@@ -47,21 +50,14 @@ namespace Produce_WebApp.SecureComputationCenter
 			Encoded703 = new Plaintext();
 			encoder.Encode(703, scale, Encoded703);
 		}
-		public Ciphertext GetHeightSquared(Ciphertext Height)
-		{
-			Ciphertext BMI = new Ciphertext();
-			//Take in encrypteed Height and square,output to BMI variable.
-			evaluator.Square(Height,BMI);
-
-			return BMI;
-		}
 
 		public Ciphertext MultiplyWeightByHeightSquared(Ciphertext weight,Ciphertext heightsquared)
 		{
 			Ciphertext WeightByHeightSquared = new Ciphertext();
+			//Will be a scale of 80 output.
 			evaluator.Multiply(weight, heightsquared, WeightByHeightSquared);
 			//Need to find a solution for this.
-
+			
 			return WeightByHeightSquared;
 		}
 		public Ciphertext MultiplyBy703(Ciphertext WeightHeightDivided)

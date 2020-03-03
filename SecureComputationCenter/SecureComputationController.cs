@@ -14,13 +14,13 @@ namespace Produce_WebApp.SecureComputationCenter
 		private BMIComputation bmiComputation;
 		private SalaryComputation salaryComputation;
 		private BreaksComputation breaksComputation;
-		public SecureComputationController()
+		public SecureComputationController(RelinKeys Keys)
 		{
 			hydrationComputation = new HydrationComputation();
 			sleepComputation = new SleepComputation();
-			bmiComputation = new BMIComputation();
+			bmiComputation = new BMIComputation(Keys);
 			salaryComputation = new SalaryComputation();
-			breaksComputation = new BreaksComputation();
+			breaksComputation = new BreaksComputation(Keys);
 		}
 
 		public EncryptedDataModel RunSecureComputation(EncryptedDataModel encryptedDataModel)
@@ -34,9 +34,9 @@ namespace Produce_WebApp.SecureComputationCenter
 
 			encryptedDataModel.WeeklySalary = salaryComputation.GetWeeklySalary(encryptedDataModel.Salary);
 
-			encryptedDataModel.TotalSittingTime = breaksComputation.GetTotalSittingTime(encryptedDataModel.HoursWeek, encryptedDataModel.Breaks);
+			encryptedDataModel.TotalSittingTime = breaksComputation.GetBreaks(encryptedDataModel.Breaks);
 			//BMI not working throwing error.
-			//encryptedDataModel.BMI = bmiComputation.ComputeBMI(encryptedDataModel.Height, encryptedDataModel.Weight);
+			encryptedDataModel.BMI = bmiComputation.ComputeBMI(encryptedDataModel.HeightOverOne, encryptedDataModel.Weight);
 			return encryptedDataModel;
 		}
 	}

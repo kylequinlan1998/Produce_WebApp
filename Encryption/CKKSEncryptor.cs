@@ -18,7 +18,7 @@ namespace Produce_WebApp.Encryption
 		KeyGenerator keygen;
 		PublicKey publicKey;
 		SecretKey secretKey;
-		RelinKeys KeysRelin;
+		public RelinKeys KeysRelin;
 		public CKKSEncryptor()
 		{
 			//Set scheme Primes and encryption parameters.
@@ -63,6 +63,7 @@ namespace Produce_WebApp.Encryption
 			encryptedDataModel.Sleep = EncryptLong(userData.Sleep);
 			encryptedDataModel.Water = EncryptLong(userData.WaterPerDay);
 			encryptedDataModel.Weight = EncryptLong(userData.Weight);
+			encryptedDataModel.HeightOverOne = EncryptLong((long)userData.HeightOverOne);
 
 			return encryptedDataModel;
 		}
