@@ -30,19 +30,20 @@ namespace Produce_WebApp.Encryption
 
 			//Decrypt to Plaintext.
 			doubleList.Add(PrepareModel(encryptedDataModel.Age));
-			doubleList.Add(PrepareModel(encryptedDataModel.BMI));
+			//Remove BMI for now.
+			//doubleList.Add(PrepareModel(encryptedDataModel.BMI));
 			doubleList.Add(PrepareModel(encryptedDataModel.Breaks));
 			doubleList.Add(PrepareModel(encryptedDataModel.Height));
 			doubleList.Add(PrepareModel(encryptedDataModel.Weight));
 			doubleList.Add(PrepareModel(encryptedDataModel.Water));
 			doubleList.Add(PrepareModel(encryptedDataModel.Sleep));
 			doubleList.Add(PrepareModel(encryptedDataModel.HoursWeek));
+			//doubleList.Add(PrepareModel(encryptedDataModel.HoursPerDay));
 			doubleList.Add(PrepareModel(encryptedDataModel.Salary));
 			doubleList.Add(PrepareModel(encryptedDataModel.SleepProductivityLoss));
 			doubleList.Add(PrepareModel(encryptedDataModel.WaterProductivityLoss));
 			doubleList.Add(PrepareModel(encryptedDataModel.WeeklySalary));
-			doubleList.Add(PrepareModel(encryptedDataModel.TotalSittingTime));
-
+			doubleList.Add(PrepareModel(encryptedDataModel.TotalBreakTime));
 			return doubleList;
 		}
 

@@ -11,7 +11,9 @@ namespace Produce_WebApp.Pages
     public class IndexModel : PageModel
     {
         [BindProperty(SupportsGet =true)]
-        public string city { get; set; }
+        public string Name { get; set; }
+        public double Age { get; set; }
+
         private readonly ILogger<IndexModel> _logger;
         
         public IndexModel(ILogger<IndexModel> logger)

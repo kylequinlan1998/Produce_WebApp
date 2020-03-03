@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Produce_WebApp.Models;
 using Produce_WebApp.Encryption;
 using Produce_WebApp.DataFlowController;
+using Produce_WebApp.Pages;
+using System.Web.Helpers;
 
 namespace Produce_WebApp
 {
@@ -16,6 +18,7 @@ namespace Produce_WebApp
         public InputDataModel UserDataPlain { get; set; }
         public FlowController controller;
         public string error = "";
+        
         
 
         public IActionResult OnPostTest()
@@ -30,16 +33,36 @@ namespace Produce_WebApp
             }
             error = "working";
             
-            StartDataFlow();
-
-            return RedirectToPage("/Index", new { city = UserDataPlain.Address });
+            var ListOfDoubles = StartDataFlow();
+            //Pass the Computed Data for display.
+            PassToDataDisplay(ListOfDoubles);
+            return RedirectToPage("/ProductivitySummary", new { });
         }
 
-        public void StartDataFlow()
+        public List<double> StartDataFlow()
         {
             //Creates an instance of th Flow controller
             controller = new FlowController();
-            controller.StartDataProcessing(UserDataPlain);
+            //Stores the result of the SecureComputation in a List of doubles.
+            var ComputationResult = controller.StartDataProcessing(UserDataPlain);
+            
+            return ComputationResult;
+        }
+
+        public void PassToDataDisplay(List<double> DecryptedDoubleList)
+        {
+            DataDisplay.Age = DecryptedDoubleList[0];
+            DataDisplay.HoursPerWeek = DecryptedDoubleList[6];
+            DataDisplay.Height = DecryptedDoubleList[2];
+            DataDisplay.Weight = DecryptedDoubleList[3];
+            DataDisplay.Sleep = DecryptedDoubleList[5];
+            DataDisplay.SleepLoss = DecryptedDoubleList[8];
+            DataDisplay.Breaks = DecryptedDoubleList[1];
+            //DataDisplay.BreaksDeficit = DecryptedDoubleList[];
+            DataDisplay.Hydration = DecryptedDoubleList[4];
+            DataDisplay.HydrationLoss = DecryptedDoubleList[9];
+            DataDisplay.TotalProductivityLoss = DecryptedDoubleList[12];
+            DataDisplay.WeeklySalary = DecryptedDoubleList[10];
         }
 
     }

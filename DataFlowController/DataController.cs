@@ -20,6 +20,8 @@ namespace Produce_WebApp.DataFlowController
 		private SecureComputationController secureComputation;
 		private ClientDataComputation clientComputation;
 		private ClientDataPreProcessor preprocessor;
+
+		public List<double> ResultList { get; set; }
 		//used for encryption and decryption.
 		public FlowController()
 		{
@@ -33,23 +35,23 @@ namespace Produce_WebApp.DataFlowController
 			preprocessor = new ClientDataPreProcessor();
 		}
 
-		public void StartDataProcessing(InputDataModel UserDataPlain)
+		public List<double> StartDataProcessing(InputDataModel UserDataPlain)
 		{
+			//Returns a list of doubles with the computed data.
 			var UpdateHeight = preprocessor.HeightCalc(UserDataPlain.Height);
 			UserDataPlain.HeightOverOne = UpdateHeight;
 			//The encrypted DataModel
 			var EncryptedDataModel = EncryptDataModel(UserDataPlain);
 
 			//The Model with secure computation performed.
-			var intermediate = secureComputation.RunSecureComputation(EncryptedDataModel);
+			var EncryptedComputed = secureComputation.RunSecureComputation(EncryptedDataModel);
 
 			//The decrypted List of doubles after performing computatio.
-			var DecryptdListOfDoubles = DecryptDataModel(intermediate);
+			var DecryptdListOfDoubles = DecryptDataModel(EncryptedComputed);
 
-			//Pass the decrypted resuts to client side computation center.
-			//Bmi has the value of height squared at this point in the code.
-
-			//userDataModel = DecryptDataModel(EncryptedDataModel);
+			//Pass in the decrypted result list of doubles.Computers total Loss
+			DecryptdListOfDoubles.Add(clientComputation.TotalProductivityLost(DecryptdListOfDoubles));
+			return DecryptdListOfDoubles;
 		}
 
 		public EncryptedDataModel EncryptDataModel(InputDataModel UserModel)

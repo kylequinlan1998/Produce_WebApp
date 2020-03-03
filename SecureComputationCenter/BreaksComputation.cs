@@ -39,11 +39,8 @@ namespace Produce_WebApp.SecureComputationCenter
 			FiveMinuteBreak = new Plaintext();
 			encoder.Encode(5.0,scale,FiveMinuteBreak);
 
-			Hour = new Plaintext();
-			encoder.Encode(60, scale, Hour);
-
-			one = new Plaintext();
-			encoder.Encode(1, scale, one);
+			DivideByFive = new Plaintext();
+			encoder.Encode(0.20, scale, DivideByFive);
 		}
 
 		public Ciphertext GetBreaks(Ciphertext Breaks)
@@ -56,76 +53,12 @@ namespace Produce_WebApp.SecureComputationCenter
 			return totalBreakTime;
 		}
 
-		/*public void SetConstants()
+		public Ciphertext GetDailyHours( Ciphertext HoursPerWeek)
 		{
-			FiveMinuteBreak = new Plaintext();
-			Hour = new Plaintext();
-			DivideByFive = new Plaintext();
-			encoder.Encode(5.0,scale, FiveMinuteBreak);
-			encoder.Encode(60.0, scale, Hour);
-			encoder.Encode(0.20, scale, DivideByFive);
+			//Divides Hours per week by 5.
+			evaluator.MultiplyPlainInplace(HoursPerWeek, DivideByFive);
+
+			return HoursPerWeek;
 		}
-
-		public Ciphertext GetTotalSittingTime(Ciphertext HoursPerWeek,Ciphertext Breaks)
-		{
-			Ciphertext totalBreakTime = new Ciphertext();
-			Ciphertext totalSittingTime = new Ciphertext();
-			Ciphertext DailyHours = new Ciphertext();
-			Ciphertext result = new Ciphertext();
-			
-			//----------------------------------------------------------------------
-			//Scale of 80.
-			evaluator.MultiplyPlain(Breaks, FiveMinuteBreak, totalBreakTime);
-
-
-
-			//Being stored in Breaks now.
-			evaluator.AddPlainInplace(Breaks, Hour);
-			//Breaks stores total time on break.
-
-			//scale of 80.
-			DailyHours = GetDailyHours(HoursPerWeek);
-			
-
-			DailyHours.Scale = Math.Pow(2.0, 40);
-			totalBreakTime.Scale = Math.Pow(2.0, 40);
-
-			evaluator.SubInplace(DailyHours, totalBreakTime);
-
-			return DailyHours; ;
-
-			ParmsId lastParmsId = x3Encrypted.ParmsId;
-			evaluator.ModSwitchToInplace(x1Encrypted, lastParmsId);
-			evaluator.ModSwitchToInplace(plainCoeff0, lastParmsId);
-		}
-
-		public Ciphertext GetDailyHours(Ciphertext HoursPerWeek)
-		{
-			//Takes in weekly Hours and Divides by 5.
-			Ciphertext DailyHours = new Ciphertext();
-
-			//Returns DailyHours with a scale of ^80.
-			evaluator.MultiplyPlain(HoursPerWeek, DivideByFive, DailyHours);
-
-			
-			return DailyHours;
-		}
-
-		/*public Ciphertext GetDailyMinutes(Ciphertext HoursPerWeek)
-		{
-			//Takes in Hours per week and converts it to minutes per day.
-			Ciphertext DailyHours = new Ciphertext();
-			DailyHours = GetDailyHours(HoursPerWeek);
-
-			//Takes in daily Hours and converts to Minutes.
-			Ciphertext DailyMinutes = new Ciphertext();
-
-			//Mulltiplication 2
-			evaluator.MultiplyPlain(DailyHours, Hour, DailyMinutes);
-
-			//Rescaling the Result of multipling HoursPerWeek.
-			evaluator.RescaleToNextInplace(DailyMinutes);
-			return DailyMinutes;
-		}*/
 	}
 }

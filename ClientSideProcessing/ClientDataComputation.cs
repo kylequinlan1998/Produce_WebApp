@@ -10,21 +10,30 @@ namespace Produce_WebApp.ClientSideProcessing
 	{
 		private string Sleepmessage;
 		private string HydrationMessage;
+		private string BreaksMessage;
 		public ClientDataComputation()
 		{
 
 		}
 
-		private double GetSleepLoss(UserDataModel userData)
+		public double TotalProductivityLost(List<double> ComputedDoubleList)
 		{
-			if (userData.Sleep <= -2)
+			double totalProductivityLost;
+			totalProductivityLost = GetSleepLoss(ComputedDoubleList[8]);
+			totalProductivityLost += GetHydrationLoss(ComputedDoubleList[9]);
+			//totalProductivityLost += GetBreakLoss(ComputedDoubleList[1],ComputedDoubleList[6]);
+			return totalProductivityLost;
+		}
+		private double GetSleepLoss(double Sleep)
+		{
+			if (Sleep <= -1)
 			{
 				//If user has had less than 6 hours sleep.
 				Sleepmessage = "Per night you sleep <= 6 hours per night.";
 				return 0.05;
 			}
 
-			else if (userData.Sleep == 0)
+			else if (Sleep == 0)
 			{
 				Sleepmessage = "You are receving 8 hours of sleep per night";
 				return 0.00;
@@ -38,19 +47,18 @@ namespace Produce_WebApp.ClientSideProcessing
 
 		}
 
-		private double GetHydrationLoss(UserDataModel userData)
+		private double GetHydrationLoss(double Water)
 		{
-			if (userData.WaterPerDay < -1)
+			if (Water <= -1)
 			{
-				HydrationMessage = "You are severley Dehydrated";
+				HydrationMessage = "You are Dehydrated";
 				return 0.10;
 			}
 
-			else if (userData.WaterPerDay == 0)
+			else if (Water == 0)
 			{
 				HydrationMessage = "You are at the recommended level of water intake";
 				return 0;
-				
 			}
 
 			else
@@ -60,9 +68,23 @@ namespace Produce_WebApp.ClientSideProcessing
 			}
 		}
 
-		public int DivideWeightByHeight(UserDataModel userData)
+		private double GetBreakLoss(double Breaks,double HoursPerDay)
 		{
-			return userData.Weight / userData.Height;
+			if(Breaks < HoursPerDay)
+			{
+				BreaksMessage = "You have not Taken enough breaks";
+				return 0.05;
+			}
+			else if (Breaks == HoursPerDay)
+			{
+				BreaksMessage = "You have taken the correct amount of breaks";
+				return 0.00;
+			}
+			else
+			{
+				BreaksMessage = "You have taken More breaks than required,aim for one an hour.";
+				return 0.00;
+			}
 		}
 	}
 }
