@@ -51,8 +51,8 @@ namespace Produce_WebApp
 
         public void PassToDataDisplay(ComputedDataModel computedDataModel)
         {
-            DataDisplay.Age = computedDataModel.Age;
-            /*DataDisplay.HoursPerWeek = DecryptedDoubleList[6];
+            /*DataDisplay.Age = computedDataModel.Age;
+            DataDisplay.HoursPerWeek = DecryptedDoubleList[6];
             DataDisplay.Height = DecryptedDoubleList[2];
             DataDisplay.Weight = DecryptedDoubleList[3];
             DataDisplay.Sleep = DecryptedDoubleList[5];
@@ -64,6 +64,7 @@ namespace Produce_WebApp
             DataDisplay.TotalProductivityLoss = DecryptedDoubleList[12];
             DataDisplay.WeeklySalary = DecryptedDoubleList[10];
             */
+            DataDisplay.computedDataModel = computedDataModel;
         }
 
     }

@@ -22,8 +22,14 @@ namespace Produce_WebApp.ClientSideProcessing
 			computedDataModel.SleepProductivityLoss = (GetSleepLoss(computedDataModel.SleepDeficit));
 
 			computedDataModel.WaterProductivityLoss = GetHydrationLoss(computedDataModel.WaterDeficit);
-			//totalProductivityLost.Add(GetBreakLoss(ComputedDoubleList[],ComputedDoubleList[]))
-			//totalProductivityLost += GetBreakLoss(ComputedDoubleList[1],ComputedDoubleList[6]);
+			computedDataModel.BreaksProductivityLoss = GetBreakLoss(computedDataModel.Breaks, computedDataModel.DailyHours);
+
+			computedDataModel.TotalProductivityLoss = computedDataModel.WaterProductivityLoss;
+			computedDataModel.TotalProductivityLoss += computedDataModel.BreaksProductivityLoss;
+			computedDataModel.TotalProductivityLoss += computedDataModel.SleepProductivityLoss;
+
+			computedDataModel = TotalMonetaryLoss(computedDataModel);
+			NormaliseValues(computedDataModel);
 			return computedDataModel;
 		}
 		private double GetSleepLoss(double Sleep)
@@ -87,6 +93,33 @@ namespace Produce_WebApp.ClientSideProcessing
 				BreaksMessage = "You have taken More breaks than required,aim for one an hour.";
 				return 0.00;
 			}
+		}
+
+		private ComputedDataModel TotalMonetaryLoss(ComputedDataModel computedDataModel)
+		{
+			//Compute the total Monetary cost per week due to bad working conditions.
+			//Hydration
+			computedDataModel.WaterMonetaryLoss = (computedDataModel.WaterProductivityLoss * computedDataModel.WeeklySalary);
+			computedDataModel.SleepMonetaryLoss= (computedDataModel.SleepProductivityLoss * computedDataModel.WeeklySalary);
+			computedDataModel.BreaksMonetaryLoss = (computedDataModel.BreaksProductivityLoss * computedDataModel.WeeklySalary);
+			computedDataModel.TotalMonetaryLoss = (computedDataModel.WaterMonetaryLoss + computedDataModel.SleepMonetaryLoss + computedDataModel.BreaksMonetaryLoss);
+			return computedDataModel;
+		}
+
+		private void NormaliseValues(ComputedDataModel computedDataModel)
+		{
+			computedDataModel.Age = Math.Round(computedDataModel.Age, 0);
+			computedDataModel.Breaks = Math.Round(computedDataModel.Breaks, 0);
+			computedDataModel.BreaksMonetaryLoss = Math.Round(computedDataModel.BreaksMonetaryLoss, 2);
+			//Was going to put a breaks round here but there is currently no deficit.
+			computedDataModel.WeeklyHours = Math.Round(computedDataModel.WeeklyHours, 1);
+			computedDataModel.DailyHours = Math.Round(computedDataModel.DailyHours, 2);
+			computedDataModel.Salary = Math.Round(computedDataModel.Salary, 2);
+			computedDataModel.WeeklySalary = Math.Round(computedDataModel.WeeklySalary, 2);
+			computedDataModel.Sleep = Math.Round(computedDataModel.Sleep, 2);
+			computedDataModel.SleepMonetaryLoss = Math.Round(computedDataModel.SleepMonetaryLoss, 2);
+			computedDataModel.Water = Math.Round(computedDataModel.Water);
+			computedDataModel.WaterMonetaryLoss = Math.Round(computedDataModel.WaterMonetaryLoss, 2);
 		}
 	}
 }
