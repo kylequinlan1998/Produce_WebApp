@@ -16,13 +16,15 @@ namespace Produce_WebApp.ClientSideProcessing
 
 		}
 
-		public double TotalProductivityLost(List<double> ComputedDoubleList)
+		public ComputedDataModel TotalProductivityLost(ComputedDataModel computedDataModel)
 		{
-			double totalProductivityLost;
-			totalProductivityLost = GetSleepLoss(ComputedDoubleList[8]);
-			totalProductivityLost += GetHydrationLoss(ComputedDoubleList[9]);
+			//Add value to a list of doubles.
+			computedDataModel.SleepProductivityLoss = (GetSleepLoss(computedDataModel.SleepDeficit));
+
+			computedDataModel.WaterProductivityLoss = GetHydrationLoss(computedDataModel.WaterDeficit);
+			//totalProductivityLost.Add(GetBreakLoss(ComputedDoubleList[],ComputedDoubleList[]))
 			//totalProductivityLost += GetBreakLoss(ComputedDoubleList[1],ComputedDoubleList[6]);
-			return totalProductivityLost;
+			return computedDataModel;
 		}
 		private double GetSleepLoss(double Sleep)
 		{

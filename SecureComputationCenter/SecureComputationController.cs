@@ -35,6 +35,7 @@ namespace Produce_WebApp.SecureComputationCenter
 			encryptedDataModel.WeeklySalary = salaryComputation.GetWeeklySalary(encryptedDataModel.Salary);
 
 			encryptedDataModel.TotalBreakTime = breaksComputation.GetBreaks(encryptedDataModel.Breaks);
+			encryptedDataModel.HoursPerDay = breaksComputation.GetDailyHours(encryptedDataModel.HoursWeek);
 			//encryptedDataModel.HoursPerDay = breaksComputation.GetDailyHours(encryptedDataModel.HoursWeek);
 			//BMI not working throwing error.
 			encryptedDataModel.BMI = bmiComputation.ComputeBMI(encryptedDataModel.HeightOverOne, encryptedDataModel.Weight);

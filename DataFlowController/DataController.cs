@@ -35,7 +35,7 @@ namespace Produce_WebApp.DataFlowController
 			preprocessor = new ClientDataPreProcessor();
 		}
 
-		public List<double> StartDataProcessing(InputDataModel UserDataPlain)
+		public ComputedDataModel StartDataProcessing(InputDataModel UserDataPlain)
 		{
 			//Returns a list of doubles with the computed data.
 			var UpdateHeight = preprocessor.HeightCalc(UserDataPlain.Height);
@@ -46,12 +46,13 @@ namespace Produce_WebApp.DataFlowController
 			//The Model with secure computation performed.
 			var EncryptedComputed = secureComputation.RunSecureComputation(EncryptedDataModel);
 
-			//The decrypted List of doubles after performing computatio.
-			var DecryptdListOfDoubles = DecryptDataModel(EncryptedComputed);
+			//The computed Data Model after Decryption.
+			var computedDataModel = DecryptDataModel(EncryptedComputed);
 
 			//Pass in the decrypted result list of doubles.Computers total Loss
-			DecryptdListOfDoubles.Add(clientComputation.TotalProductivityLost(DecryptdListOfDoubles));
-			return DecryptdListOfDoubles;
+			computedDataModel = clientComputation.TotalProductivityLost(computedDataModel);
+			
+			return computedDataModel;
 		}
 
 		public EncryptedDataModel EncryptDataModel(InputDataModel UserModel)
@@ -63,12 +64,12 @@ namespace Produce_WebApp.DataFlowController
 			return EncryptedData;
 		}
 
-		public List<double> DecryptDataModel(EncryptedDataModel encryptedDataModel)
+		public ComputedDataModel DecryptDataModel(EncryptedDataModel encryptedDataModel)
 		{
 			//Takes in an encryptedDataModel and returns a List of Doubles.
-			var DoubleList = DecryptionTools.DecryptModel(encryptedDataModel);
+			var computedDataModel = DecryptionTools.DecryptModel(encryptedDataModel);
 
-			return DoubleList;
+			return computedDataModel;
 		}
 	}
 }

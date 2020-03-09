@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Produce_WebApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ namespace Produce_WebApp
 {
 	public static class DataDisplay
 	{
+		public static ComputedDataModel computedDataModel { get; set; }
 		public static double Age { get; set; }
 		public static double Weight { get; set; }
 		public static double Height { get; set; }

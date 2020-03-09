@@ -55,10 +55,11 @@ namespace Produce_WebApp.SecureComputationCenter
 
 		public Ciphertext GetDailyHours( Ciphertext HoursPerWeek)
 		{
+			Ciphertext result = new Ciphertext();
 			//Divides Hours per week by 5.
-			evaluator.MultiplyPlainInplace(HoursPerWeek, DivideByFive);
+			evaluator.MultiplyPlain(HoursPerWeek, DivideByFive,result);
 
-			return HoursPerWeek;
+			return result;
 		}
 	}
 }

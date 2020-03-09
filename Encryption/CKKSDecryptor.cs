@@ -23,7 +23,7 @@ namespace Produce_WebApp.Encryption
 			encoder = new CKKSEncoder(Context);
 		}
 		
-		public List<double> DecryptModel(EncryptedDataModel encryptedDataModel)
+		/*public List<double> DecryptModel(EncryptedDataModel encryptedDataModel)
 		{
 			//Takes in a Ciphertext and returns a List of Plaintext.
 			List<double> doubleList = new List<double>();
@@ -38,13 +38,44 @@ namespace Produce_WebApp.Encryption
 			doubleList.Add(PrepareModel(encryptedDataModel.Water));
 			doubleList.Add(PrepareModel(encryptedDataModel.Sleep));
 			doubleList.Add(PrepareModel(encryptedDataModel.HoursWeek));
-			//doubleList.Add(PrepareModel(encryptedDataModel.HoursPerDay));
+			doubleList.Add(PrepareModel(encryptedDataModel.HoursPerDay));
 			doubleList.Add(PrepareModel(encryptedDataModel.Salary));
 			doubleList.Add(PrepareModel(encryptedDataModel.SleepProductivityLoss));
 			doubleList.Add(PrepareModel(encryptedDataModel.WaterProductivityLoss));
 			doubleList.Add(PrepareModel(encryptedDataModel.WeeklySalary));
 			doubleList.Add(PrepareModel(encryptedDataModel.TotalBreakTime));
 			return doubleList;
+		}*/
+		public ComputedDataModel DecryptModel(EncryptedDataModel encryptedDataModel)
+		{
+			//Takes in a Ciphertext and returns a List of Plaintext.
+			ComputedDataModel computedDataModel = new ComputedDataModel();
+
+			//Decrypt to Plaintext.
+			computedDataModel.Age = PrepareModel(encryptedDataModel.Age);
+			//Remove BMI for now.
+			//doubleList.Add(PrepareModel(encryptedDataModel.BMI));
+			
+			computedDataModel.Height = PrepareModel(encryptedDataModel.Height);
+			computedDataModel.Weight = PrepareModel(encryptedDataModel.Weight);
+
+			computedDataModel.Breaks = PrepareModel(encryptedDataModel.Breaks);
+			computedDataModel.TotalBreakTime = PrepareModel(encryptedDataModel.TotalBreakTime);
+
+			computedDataModel.WeeklyHours = PrepareModel(encryptedDataModel.HoursWeek);
+			computedDataModel.DailyHours = PrepareModel(encryptedDataModel.HoursPerDay);
+
+			computedDataModel.Salary = PrepareModel(encryptedDataModel.Salary);
+			computedDataModel.WeeklySalary = PrepareModel(encryptedDataModel.WeeklySalary);
+
+			computedDataModel.Sleep = PrepareModel(encryptedDataModel.Sleep);
+			computedDataModel.SleepDeficit = PrepareModel(encryptedDataModel.SleepProductivityLoss);
+
+			computedDataModel.Water = PrepareModel(encryptedDataModel.Water);
+			computedDataModel.WaterDeficit = PrepareModel(encryptedDataModel.WaterProductivityLoss);
+			
+			
+			return computedDataModel;
 		}
 
 		public double PrepareModel(Ciphertext cipherInput)

@@ -33,13 +33,13 @@ namespace Produce_WebApp
             }
             error = "working";
             
-            var ListOfDoubles = StartDataFlow();
+            var computedDataModel = StartDataFlow();
             //Pass the Computed Data for display.
-            PassToDataDisplay(ListOfDoubles);
+            PassToDataDisplay(computedDataModel);
             return RedirectToPage("/ProductivitySummary", new { });
         }
 
-        public List<double> StartDataFlow()
+        public ComputedDataModel StartDataFlow()
         {
             //Creates an instance of th Flow controller
             controller = new FlowController();
@@ -49,10 +49,10 @@ namespace Produce_WebApp
             return ComputationResult;
         }
 
-        public void PassToDataDisplay(List<double> DecryptedDoubleList)
+        public void PassToDataDisplay(ComputedDataModel computedDataModel)
         {
-            DataDisplay.Age = DecryptedDoubleList[0];
-            DataDisplay.HoursPerWeek = DecryptedDoubleList[6];
+            DataDisplay.Age = computedDataModel.Age;
+            /*DataDisplay.HoursPerWeek = DecryptedDoubleList[6];
             DataDisplay.Height = DecryptedDoubleList[2];
             DataDisplay.Weight = DecryptedDoubleList[3];
             DataDisplay.Sleep = DecryptedDoubleList[5];
@@ -63,6 +63,7 @@ namespace Produce_WebApp
             DataDisplay.HydrationLoss = DecryptedDoubleList[9];
             DataDisplay.TotalProductivityLoss = DecryptedDoubleList[12];
             DataDisplay.WeeklySalary = DecryptedDoubleList[10];
+            */
         }
 
     }
