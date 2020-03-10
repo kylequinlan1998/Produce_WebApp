@@ -5,6 +5,11 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+  background-color:red;
+}
+
+nav{
+    color:red;
 }
 
 /* Provide sufficient contrast against white background */

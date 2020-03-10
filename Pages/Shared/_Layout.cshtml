@@ -7,16 +7,16 @@
     
 </head>
 <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-light" >
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand">Produce</a>
             </div>
-            <ul class="nav navbar-nav">
-                <li><a href="#">Hydration</a></li>
-                <li><a href="#">Sleep</a></li>
-                <li><a href="#">Breaks</a></li>
-                <li><a href="#">Summary</a></li>
+            <ul class="nav navbar-nav navbar">
+                <li><a href="/Hydration">Hydration</a></li>
+                <li><a href="/Sleep">Sleep</a></li>
+                <li><a href="/Breaks">Breaks</a></li>
+                <li><a href="/ProductivitySummary">Summary</a></li>
             </ul>
         </div>
     </nav>
@@ -27,10 +27,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted fixed-bottom">
         <div class="container">
-            &copy; 2020 - Produce_WebApp - <a asp-area="" asp-page="/filler"></a>
-        </div>
+            <p class="text-center">&copy; 2020 - Produce_WebApp - Kyle Quinlan <a asp-area="" asp-page="/filler"></a></p></div>
     </footer>
 
     @RenderSection("Scripts", required: false)

@@ -5,28 +5,54 @@
     ViewData["Title"] = "ProductivitySummary";
     Layout = "_Layout";
 }
-    
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
-              asp-fallback-href="~/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/wwwroot/css/site.min.css" asp-append-version="true" />
-    
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                One of three columns
-            </div>
-            <div class="col-lg-4">
-                One of three columns
-                @Model.computedDataModel.Age
-            </div>
-            <div class="col-lg-4">
-                One of three columns
+
+<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+      asp-fallback-href="~/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css"
+      asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+<link rel="stylesheet" href="~/wwwroot/css/site.min.css" asp-append-version="true" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+<div class="container">
+    <h1 class="text-center">Productivity Summary</h1>
+    <div class="row">
+        <div class="col text-center">
+            <h3>Total Cost of Lost Productivity</h3>
+            <h2>£@Model.computedDataModel.TotalYearlyMonetaryLoss Per Year</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3>Total Weekly Loss</h3>
+                    <h2>£@Model.computedDataModel.TotalWeeklyMonetaryLoss</h2>
+                </div>
+                <div class="col-sm-6">
+                    <canvas id="myChart" style="max-width: 500px;"></canvas>
+                </div>
             </div>
         </div>
     </div>
-            <h1>ProductivitySummary</h1>
-            <p>
-                <h1> </h1>
-            </p>
+</div>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: ['Productivity Loss','Productivity'],
+        datasets: [{
+            label: 'Productivity Breakdown',
+            backgroundColor: ['rgb(255, 99, 132)','rgb(255, 255, 255)'],
+            borderColor: 'rgb(255, 99, 132)',
+            data: [@Model.computedDataModel.TotalProductivityLoss, 100 - @Model.computedDataModel.TotalProductivityLoss]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+</script>
+
 

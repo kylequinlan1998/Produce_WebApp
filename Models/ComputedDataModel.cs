@@ -27,7 +27,8 @@ namespace Produce_WebApp.Models
 		public double BreaksProductivityLoss { get; set; }
 		public double BreaksMonetaryLoss { get; set; }
 		public double TotalBreakTime { get; set; }
-		public double TotalMonetaryLoss { get; set; }
+		public double TotalWeeklyMonetaryLoss { get; set; }
 		public double TotalProductivityLoss { get; set; }
+		public double TotalYearlyMonetaryLoss { get; set; }
 	}
 }

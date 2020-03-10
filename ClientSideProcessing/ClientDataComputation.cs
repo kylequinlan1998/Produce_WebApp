@@ -29,7 +29,7 @@ namespace Produce_WebApp.ClientSideProcessing
 			computedDataModel.TotalProductivityLoss += computedDataModel.SleepProductivityLoss;
 
 			computedDataModel = TotalMonetaryLoss(computedDataModel);
-			NormaliseValues(computedDataModel);
+			computedDataModel = NormaliseValues(computedDataModel);
 			return computedDataModel;
 		}
 		private double GetSleepLoss(double Sleep)
@@ -102,11 +102,12 @@ namespace Produce_WebApp.ClientSideProcessing
 			computedDataModel.WaterMonetaryLoss = (computedDataModel.WaterProductivityLoss * computedDataModel.WeeklySalary);
 			computedDataModel.SleepMonetaryLoss= (computedDataModel.SleepProductivityLoss * computedDataModel.WeeklySalary);
 			computedDataModel.BreaksMonetaryLoss = (computedDataModel.BreaksProductivityLoss * computedDataModel.WeeklySalary);
-			computedDataModel.TotalMonetaryLoss = (computedDataModel.WaterMonetaryLoss + computedDataModel.SleepMonetaryLoss + computedDataModel.BreaksMonetaryLoss);
+			computedDataModel.TotalWeeklyMonetaryLoss = (computedDataModel.WaterMonetaryLoss + computedDataModel.SleepMonetaryLoss + computedDataModel.BreaksMonetaryLoss);
+			computedDataModel.TotalYearlyMonetaryLoss = (computedDataModel.Salary * computedDataModel.TotalProductivityLoss);
 			return computedDataModel;
 		}
 
-		private void NormaliseValues(ComputedDataModel computedDataModel)
+		private ComputedDataModel NormaliseValues(ComputedDataModel computedDataModel)
 		{
 			computedDataModel.Age = Math.Round(computedDataModel.Age, 0);
 			computedDataModel.Breaks = Math.Round(computedDataModel.Breaks, 0);
@@ -120,6 +121,13 @@ namespace Produce_WebApp.ClientSideProcessing
 			computedDataModel.SleepMonetaryLoss = Math.Round(computedDataModel.SleepMonetaryLoss, 2);
 			computedDataModel.Water = Math.Round(computedDataModel.Water);
 			computedDataModel.WaterMonetaryLoss = Math.Round(computedDataModel.WaterMonetaryLoss, 2);
+			computedDataModel.TotalWeeklyMonetaryLoss = Math.Round(computedDataModel.TotalWeeklyMonetaryLoss, 2);
+			computedDataModel.TotalYearlyMonetaryLoss = Math.Round(computedDataModel.TotalYearlyMonetaryLoss, 2);
+			
+
+			return computedDataModel;
 		}
+
+		
 	}
 }

@@ -17,6 +17,7 @@ namespace Produce_WebApp
         {
             //Read in ComputedDataModel for displaying of Data.
             computedDataModel = DataDisplay.computedDataModel;
+            computedDataModel.TotalProductivityLoss = (computedDataModel.TotalProductivityLoss * 100);
         }
 
         public void testing(int number)
