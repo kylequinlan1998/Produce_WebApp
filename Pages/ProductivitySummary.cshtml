@@ -30,9 +30,17 @@
                     <canvas id="myChart" style="max-width: 500px;"></canvas>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">
+                    @Model.computedDataModel.SummaryMessage
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+</div>
+
 <script>
     var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {

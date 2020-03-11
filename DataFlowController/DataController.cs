@@ -20,6 +20,7 @@ namespace Produce_WebApp.DataFlowController
 		private SecureComputationController secureComputation;
 		private ClientDataComputation clientComputation;
 		private ClientDataPreProcessor preprocessor;
+		private MessageGeneration messageGeneration;
 
 		public List<double> ResultList { get; set; }
 		//used for encryption and decryption.
@@ -33,6 +34,7 @@ namespace Produce_WebApp.DataFlowController
 			secureComputation = new SecureComputationController(EncryptionTools.KeysRelin);
 			clientComputation = new ClientDataComputation();
 			preprocessor = new ClientDataPreProcessor();
+			messageGeneration = new MessageGeneration();
 		}
 
 		public ComputedDataModel StartDataProcessing(InputDataModel UserDataPlain)
@@ -51,6 +53,7 @@ namespace Produce_WebApp.DataFlowController
 
 			//Pass in the decrypted result list of doubles.Computers total Loss
 			computedDataModel = clientComputation.TotalProductivityLost(computedDataModel);
+			computedDataModel = messageGeneration.GetHealthMessage(computedDataModel);
 			
 			return computedDataModel;
 		}

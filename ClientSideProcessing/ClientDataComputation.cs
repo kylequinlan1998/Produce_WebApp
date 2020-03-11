@@ -50,7 +50,7 @@ namespace Produce_WebApp.ClientSideProcessing
 			else
 			{
 				Sleepmessage = "you have had 8+ Hours of sleep";
-				return 0.05;
+				return 0.00;
 			}
 
 		}
@@ -123,9 +123,15 @@ namespace Produce_WebApp.ClientSideProcessing
 			computedDataModel.WaterMonetaryLoss = Math.Round(computedDataModel.WaterMonetaryLoss, 2);
 			computedDataModel.TotalWeeklyMonetaryLoss = Math.Round(computedDataModel.TotalWeeklyMonetaryLoss, 2);
 			computedDataModel.TotalYearlyMonetaryLoss = Math.Round(computedDataModel.TotalYearlyMonetaryLoss, 2);
+			computedDataModel.WaterDeficit = Math.Round(computedDataModel.WaterDeficit);
 			
 
 			return computedDataModel;
+		}
+
+		private void MessageGeneration(ComputedDataModel computedDataModel)
+		{
+
 		}
 
 		
