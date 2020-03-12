@@ -124,6 +124,7 @@ namespace Produce_WebApp.ClientSideProcessing
 			computedDataModel.TotalWeeklyMonetaryLoss = Math.Round(computedDataModel.TotalWeeklyMonetaryLoss, 2);
 			computedDataModel.TotalYearlyMonetaryLoss = Math.Round(computedDataModel.TotalYearlyMonetaryLoss, 2);
 			computedDataModel.WaterDeficit = Math.Round(computedDataModel.WaterDeficit);
+			computedDataModel.SleepDeficit = Math.Round(computedDataModel.SleepDeficit);
 			
 
 			return computedDataModel;

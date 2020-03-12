@@ -17,6 +17,7 @@ namespace Produce_WebApp.ClientSideProcessing
 		{
 			computedDataModel = GetSummaryMessage(computedDataModel);
 			computedDataModel = GetHydrationMessage(computedDataModel);
+			computedDataModel = GetSleepMessage(computedDataModel);
 			return computedDataModel;
 		}
 
