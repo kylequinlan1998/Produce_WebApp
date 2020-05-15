@@ -1,0 +1,41 @@
+h1,h2,p  {
+    text-align: center;
+    padding: 1em;
+    color:#808080;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1em;
+}
+h3 {
+    text-align: left;
+    padding:1em;
+}
+
+.form-control {
+    margin: 20px
+}
+
+.btn {
+    margin:20px;
+}
+
+.sub-title {
+    text-align:left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.yellow {
+    color: #FFCA33;
+}

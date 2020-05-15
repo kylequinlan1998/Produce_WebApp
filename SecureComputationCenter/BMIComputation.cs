@@ -1,6 +1,7 @@
 ﻿using Microsoft.Research.SEAL;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,42 +12,61 @@ namespace Produce_WebApp.SecureComputationCenter
 		private EncryptionParameters parms;
 		private ulong polyModulusDegree = 8192;
 		private SEALContext context;
-		public IntegerEncoder encoder;
+		public CKKSEncoder encoder;
 		public Evaluator evaluator;
-		private Plaintext Encoded703;
-		public BMIComputation()
+		public Plaintext Encoded703;
+		double scale;
+		RelinKeys KeysRelin;
+		public BMIComputation(RelinKeys Keys)
 		{
-			parms = new EncryptionParameters(SchemeType.BFV);
+			parms = new EncryptionParameters(SchemeType.CKKS);
 			parms.PolyModulusDegree = polyModulusDegree;
-			parms.CoeffModulus = CoeffModulus.BFVDefault(polyModulusDegree);
-			parms.PlainModulus = PlainModulus.Batching(polyModulusDegree, 20);
+			parms.CoeffModulus = CoeffModulus.Create(
+				polyModulusDegree, new int[] { 60, 40, 40, 60 });
+			//parms.PlainModulus = PlainModulus.Batching(polyModulusDegree, 20);
 			context = new SEALContext(parms);
 			evaluator = new Evaluator(context);
-			encoder = new IntegerEncoder(context);
+			encoder = new CKKSEncoder(context);
+			scale = Math.Pow(2.0, 40);
 			SetConstants();
+			KeysRelin = Keys;
 		}
 
-		public Ciphertext GetHeightSquared(Ciphertext Height)
+		public Ciphertext ComputeBMI(Ciphertext HeightOverOneSquared,Ciphertext Weight)
 		{
-			Ciphertext BMI = new Ciphertext();
-			//Take in encrypteed Height and
-			evaluator.Square(Height,BMI);
+			Ciphertext weightHeightMultiplied = new Ciphertext();
+			//Scale of 80 i think.
+			weightHeightMultiplied = MultiplyWeightByHeightSquared(Weight, HeightOverOneSquared);
+			Ciphertext finalResult = new Ciphertext();
 
-			return BMI;
+			finalResult = MultiplyBy703(weightHeightMultiplied);
+
+			return finalResult;
+			
 		}
 		private void SetConstants()
 		{
-			Encoded703 = encoder.Encode(703);
+			//Encode 703 into variable.
+			Encoded703 = new Plaintext();
+			encoder.Encode(703, scale, Encoded703);
 		}
 
-		
-
+		public Ciphertext MultiplyWeightByHeightSquared(Ciphertext weight,Ciphertext heightsquared)
+		{
+			Ciphertext WeightByHeightSquared = new Ciphertext();
+			//Will be a scale of 80 output.
+			evaluator.Multiply(weight, heightsquared, WeightByHeightSquared);
+			//Need to find a solution for this.
+			
+			return WeightByHeightSquared;
+		}
 		public Ciphertext MultiplyBy703(Ciphertext WeightHeightDivided)
 		{
+			Ciphertext result = new Ciphertext();
 			//Takes in the weight/lbs and multiplies by 703 to get bmi.
-			evaluator.MultiplyPlainInplace(WeightHeightDivided, Encoded703);
+			evaluator.MultiplyPlain(WeightHeightDivided, Encoded703,result);
 
-			return WeightHeightDivided;
+			return result;
 		}
 	}
 }

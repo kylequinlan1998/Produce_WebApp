@@ -1,0 +1,141 @@
+﻿@page
+@model Produce_WebApp.ProductivitySummaryModel
+
+@{
+    ViewData["Title"] = "ProductivitySummary";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+      asp-fallback-href="~/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css"
+      asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+<link rel="stylesheet" href="~/wwwroot/css/site.min.css" asp-append-version="true" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+<div class="container">
+    <h1 class="text-center">Productivity Summary</h1>
+    <div class="row">
+        <div class="col-sm-4 text-center">
+            <h3>Sleep.</h3>
+        </div>
+        <div class="col-sm-4 text-center">
+            <h3>Water</h3>
+        </div>
+        <div class="col-sm-4 text-center">
+            <h3>Break</h3>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h4 class="text-center">Per Year @Model.computedDataModel.SleepAnnualLoss</h4>
+                    <h4 class="text-center">Per Week @Model.computedDataModel.SleepMonetaryLoss</h4>
+                </div>
+                <div class="col-sm-4">
+                    <h4 class="text-center">Per Year @Model.computedDataModel.WaterAnnualLoss</h4>
+                    <h4 class="text-center">Per Week @Model.computedDataModel.WaterMonetaryLoss</h4>
+                </div>
+                <div class="col-sm-4">
+                    <h4 class="text-center">Per Year @Model.computedDataModel.BreaksAnnualLoss</h4>
+                    <h4 class="text-center">Per Week @Model.computedDataModel.BreaksMonetaryLoss</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <canvas id="SleepChart" style="height:20em"></canvas>
+                </div>
+                <div class="col-sm-8">
+                    <h4>@Model.computedDataModel.SleepMessage</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <canvas id="WaterChart" style="height:20em"></canvas>
+                </div>
+                <div class="col-sm-8">
+                    <h3>Water</h3>
+                    <h4>@Model.computedDataModel.WaterMessage</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <canvas id="BreaksChart" style="height:20em"></canvas>
+                </div>
+                <div class="col-sm-8">
+                    <h3>Breaks</h3>
+                    <h4>@Model.computedDataModel.BreaksMessage</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+    var ctx = document.getElementById('SleepChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: ['Productivity Loss','Productivity'],
+        datasets: [{
+            label: 'Productivity Breakdown',
+            backgroundColor: ['rgb(230, 227, 227)','rgb(255, 255, 255)'],
+            borderColor: 'rgb(255, 99, 132)',
+            data: [@Model.computedDataModel.SleepProductivityLoss, 100 - @Model.computedDataModel.SleepProductivityLoss]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+</script>
+
+<script>
+    var ctx = document.getElementById('WaterChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: ['Productivity Loss','Productivity'],
+        datasets: [{
+            label: 'Productivity Breakdown',
+            backgroundColor: ['rgb(57, 204, 245)','rgb(255, 255, 255)'],
+            borderColor: 'rgb(255, 99, 132)',
+            data: [@Model.computedDataModel.WaterProductivityLoss, 100 - @Model.computedDataModel.WaterProductivityLoss]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+</script>
+
+<script>
+    var ctx = document.getElementById('BreaksChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: ['Productivity Loss','Productivity'],
+        datasets: [{
+            label: 'Productivity Breakdown',
+            backgroundColor: ['rgb(141, 219, 184)','rgb(255, 255, 255)'],
+            borderColor: 'rgb(255, 99, 132)',
+            data: [@Model.computedDataModel.BreaksProductivityLoss, 100 - @Model.computedDataModel.BreaksProductivityLoss]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+</script>
+
+

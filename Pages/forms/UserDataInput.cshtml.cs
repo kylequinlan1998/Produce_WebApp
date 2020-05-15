@@ -7,15 +7,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Produce_WebApp.Models;
 using Produce_WebApp.Encryption;
 using Produce_WebApp.DataFlowController;
+using Produce_WebApp.Pages;
+using System.Web.Helpers;
 
 namespace Produce_WebApp
 {
     public class userData : PageModel
     {
         [BindProperty]
-        public UserDataModel UserDataPlain { get; set; }
+        public InputDataModel UserDataPlain { get; set; }
         public FlowController controller;
         public string error = "";
+        
         
 
         public IActionResult OnPostTest()
@@ -30,16 +33,25 @@ namespace Produce_WebApp
             }
             error = "working";
             
-            StartDataFlow();
-
-            return RedirectToPage("/Index", new { city = UserDataPlain.Address });
+            var computedDataModel = StartDataFlow();
+            //Pass the Computed Data for display.
+            PassToDataDisplay(computedDataModel);
+            return RedirectToPage("/ProductivitySummary", new { });
         }
 
-        public void StartDataFlow()
+        public ComputedDataModel StartDataFlow()
         {
             //Creates an instance of th Flow controller
             controller = new FlowController();
-            controller.StartDataProcessing(UserDataPlain);
+            //Stores the result of the SecureComputation in a List of doubles.
+            var ComputationResult = controller.StartDataProcessing(UserDataPlain);
+            
+            return ComputationResult;
+        }
+
+        public void PassToDataDisplay(ComputedDataModel computedDataModel)
+        {
+            DataDisplay.computedDataModel = computedDataModel;
         }
 
     }

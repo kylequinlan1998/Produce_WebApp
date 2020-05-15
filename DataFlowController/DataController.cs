@@ -15,36 +15,48 @@ namespace Produce_WebApp.DataFlowController
 	public class FlowController
 	{
 		//Access to tools to encrypt My model.
-		BfvEncryptor EncryptionTools;
-		BfvDecryptor DecryptionTools;
+		CKKSEncryptor EncryptionTools;
+		CKKSDecryptor DecryptionTools;
 		private SecureComputationController secureComputation;
 		private ClientDataComputation clientComputation;
-		//used for encryption and decryption.
+		private ClientDataPreProcessor preprocessor;
+		private MessageGeneration messageGeneration;
+
 		public FlowController()
 		{
 			//Create an instance of bfv Encryption
-			EncryptionTools = new BfvEncryptor();
+			EncryptionTools = new CKKSEncryptor();
 			(PublicKey,SecretKey) Keys = EncryptionTools.GetKeys();
 			//Begins an instance of Decrypto by passding in seal context and Secret Key.
-			DecryptionTools = new BfvDecryptor(EncryptionTools.context,Keys.Item2);
-			secureComputation = new SecureComputationController();
+			DecryptionTools = new CKKSDecryptor(EncryptionTools.context,Keys.Item2);
+			secureComputation = new SecureComputationController(EncryptionTools.KeysRelin);
 			clientComputation = new ClientDataComputation();
+			preprocessor = new ClientDataPreProcessor();
+			messageGeneration = new MessageGeneration();
 		}
 
-		public void StartDataProcessing(UserDataModel UserDataPlain)
+		public ComputedDataModel StartDataProcessing(InputDataModel UserDataPlain)
 		{
+			//Returns a list of doubles with the computed data.
+			var UpdateHeight = preprocessor.HeightCalc(UserDataPlain.Height);
+			UserDataPlain.HeightOverOne = UpdateHeight;
 			//The encrypted DataModel
 			var EncryptedDataModel = EncryptDataModel(UserDataPlain);
-			var intermediate = secureComputation.RunSecureComputation(EncryptedDataModel);
-			//The Decrypted Data Model.
-			var userDataModel = DecryptDataModel(intermediate);
-			//Pass the decrypted resuts to client side computation center.
-			//Bmi has the value of height squared at this point in the code.
 
-			//userDataModel = DecryptDataModel(EncryptedDataModel);
+			//The Model with secure computation performed.
+			var EncryptedComputed = secureComputation.RunSecureComputation(EncryptedDataModel);
+
+			//The computed Data Model after Decryption.
+			var computedDataModel = DecryptDataModel(EncryptedComputed);
+
+			//Pass in the decrypted result list of doubles.Computers total Loss
+			computedDataModel = clientComputation.TotalProductivityLost(computedDataModel);
+			computedDataModel = messageGeneration.GetHealthMessage(computedDataModel);
+			
+			return computedDataModel;
 		}
 
-		public EncryptedDataModel EncryptDataModel(UserDataModel UserModel)
+		public EncryptedDataModel EncryptDataModel(InputDataModel UserModel)
 		{
 			//Takes in a UserDataModel and Returns an EncryptedDataModel.
 			EncryptedDataModel EncryptedData = new EncryptedDataModel();
@@ -53,15 +65,12 @@ namespace Produce_WebApp.DataFlowController
 			return EncryptedData;
 		}
 
-		public UserDataModel DecryptDataModel(EncryptedDataModel encryptedDataModel)
+		public ComputedDataModel DecryptDataModel(EncryptedDataModel encryptedDataModel)
 		{
-			var userDataModel = DecryptionTools.DecryptEncryptedDataModel(encryptedDataModel);
+			//Takes in an encryptedDataModel and returns a List of Doubles.
+			var computedDataModel = DecryptionTools.DecryptModel(encryptedDataModel);
 
-			return userDataModel;
+			return computedDataModel;
 		}
-
-		
-
-		
 	}
 }

@@ -12,25 +12,31 @@ namespace Produce_WebApp.SecureComputationCenter
 		private HydrationComputation hydrationComputation;
 		private SleepComputation sleepComputation;
 		private BMIComputation bmiComputation;
-		public SecureComputationController()
+		private SalaryComputation salaryComputation;
+		private BreaksComputation breaksComputation;
+		public SecureComputationController(RelinKeys Keys)
 		{
 			hydrationComputation = new HydrationComputation();
 			sleepComputation = new SleepComputation();
-			bmiComputation = new BMIComputation();
+			bmiComputation = new BMIComputation(Keys);
+			salaryComputation = new SalaryComputation();
+			breaksComputation = new BreaksComputation(Keys);
 		}
 
 		public EncryptedDataModel RunSecureComputation(EncryptedDataModel encryptedDataModel)
 		{
-			//Takes in an encryptedDataModel and returns and EncryptedDataModel
-			//With Water computation complete.
-			//EncryptedDataModel EncryptedResult = new EncryptedDataModel();
-			//Find the water deficit.
-			encryptedDataModel.WaterProductivityLoss = hydrationComputation.DehydrationComputation(encryptedDataModel.Water);
-			//Find sleep deficit.
+			
+			// Sleep Computation
 			encryptedDataModel.SleepProductivityLoss = sleepComputation.GetProductivityDeficit(encryptedDataModel.Sleep);
-
-			encryptedDataModel.BMI = bmiComputation.GetHeightSquared(encryptedDataModel.Height);
-
+			// Hydration Comutation.
+			encryptedDataModel.WaterProductivityLoss = hydrationComputation.DehydrationComputation(encryptedDataModel.Water);
+			// Weekly Salary Computation
+			encryptedDataModel.WeeklySalary = salaryComputation.GetWeeklySalary(encryptedDataModel.Salary);
+			// Total Break Time Computation.
+			encryptedDataModel.TotalBreakTime = breaksComputation.GetBreaks(encryptedDataModel.Breaks);
+			// Hours per day computation
+			encryptedDataModel.HoursPerDay = breaksComputation.GetDailyHours(encryptedDataModel.HoursWeek);
+			
 			return encryptedDataModel;
 		}
 	}
