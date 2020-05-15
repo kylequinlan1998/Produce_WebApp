@@ -28,15 +28,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
-                    <h4 class="text-center">Per Year @Model.computedDataModel.SleepMonetaryLoss</h4>
+                    <h4 class="text-center">Per Year @Model.computedDataModel.SleepAnnualLoss</h4>
                     <h4 class="text-center">Per Week @Model.computedDataModel.SleepMonetaryLoss</h4>
                 </div>
                 <div class="col-sm-4">
-                    <h4 class="text-center">Per Year @Model.computedDataModel.WaterMonetaryLoss</h4>
+                    <h4 class="text-center">Per Year @Model.computedDataModel.WaterAnnualLoss</h4>
                     <h4 class="text-center">Per Week @Model.computedDataModel.WaterMonetaryLoss</h4>
                 </div>
                 <div class="col-sm-4">
-                    <h4 class="text-center">Per Year @Model.computedDataModel.BreaksMonetaryLoss</h4>
+                    <h4 class="text-center">Per Year @Model.computedDataModel.BreaksAnnualLoss</h4>
                     <h4 class="text-center">Per Week @Model.computedDataModel.BreaksMonetaryLoss</h4>
                 </div>
             </div>
@@ -45,7 +45,6 @@
                     <canvas id="SleepChart" style="height:20em"></canvas>
                 </div>
                 <div class="col-sm-8">
-                    <h3>Sleep</h3><img src="C:/Users/35386/source/repos/kylequinlan1998/Produce_WebApp/Images/WaterDroplet.png" />
                     <h4>@Model.computedDataModel.SleepMessage</h4>
                 </div>
             </div>
@@ -63,8 +62,8 @@
                     <canvas id="BreaksChart" style="height:20em"></canvas>
                 </div>
                 <div class="col-sm-8">
-                    <h3>Water</h3>
-                    <h4>@Model.computedDataModel.WaterMessage</h4>
+                    <h3>Breaks</h3>
+                    <h4>@Model.computedDataModel.BreaksMessage</h4>
                 </div>
             </div>
         </div>

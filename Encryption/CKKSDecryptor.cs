@@ -48,48 +48,38 @@ namespace Produce_WebApp.Encryption
 		}*/
 		public ComputedDataModel DecryptModel(EncryptedDataModel encryptedDataModel)
 		{
-			//Takes in a Ciphertext and returns a List of Plaintext.
 			ComputedDataModel computedDataModel = new ComputedDataModel();
-
-			//Decrypt to Plaintext.
+			// Store returned double value in given attribute
 			computedDataModel.Age = PrepareModel(encryptedDataModel.Age);
-			//Remove BMI for now.
-			//doubleList.Add(PrepareModel(encryptedDataModel.BMI));
-			
 			computedDataModel.Height = PrepareModel(encryptedDataModel.Height);
 			computedDataModel.Weight = PrepareModel(encryptedDataModel.Weight);
-
 			computedDataModel.Breaks = PrepareModel(encryptedDataModel.Breaks);
 			computedDataModel.TotalBreakTime = PrepareModel(encryptedDataModel.TotalBreakTime);
-
 			computedDataModel.WeeklyHours = PrepareModel(encryptedDataModel.HoursWeek);
 			computedDataModel.DailyHours = PrepareModel(encryptedDataModel.HoursPerDay);
-
 			computedDataModel.Salary = PrepareModel(encryptedDataModel.Salary);
 			computedDataModel.WeeklySalary = PrepareModel(encryptedDataModel.WeeklySalary);
-
 			computedDataModel.Sleep = PrepareModel(encryptedDataModel.Sleep);
 			computedDataModel.SleepDeficit = PrepareModel(encryptedDataModel.SleepProductivityLoss);
-
 			computedDataModel.Water = PrepareModel(encryptedDataModel.Water);
 			computedDataModel.WaterDeficit = PrepareModel(encryptedDataModel.WaterProductivityLoss);
 			
-			
+			// Return computedDataModel
 			return computedDataModel;
 		}
 
 		public double PrepareModel(Ciphertext cipherInput)
 		{
-			//Takes in an encryptedDataModel and returns a 
+			 
 			Plaintext decoded = new Plaintext();
 			List<double> doubleList = new List<double>();
-
+			// Decrypt CiphertextInput
 			decryptor.Decrypt(cipherInput,decoded);
-			
+			// Decode plaintext
 			encoder.Decode(decoded, doubleList);
 			double decode;
 			decode = doubleList.First();
-			//Failing here
+			// Return double value
 			return decode;
 		}
      }

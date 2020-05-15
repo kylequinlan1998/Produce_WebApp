@@ -26,19 +26,17 @@ namespace Produce_WebApp.SecureComputationCenter
 		public EncryptedDataModel RunSecureComputation(EncryptedDataModel encryptedDataModel)
 		{
 			
-			//Find sleep deficit and store in SleepProductivityLoss attribute of the cnryptedDataModel structure.
+			// Sleep Computation
 			encryptedDataModel.SleepProductivityLoss = sleepComputation.GetProductivityDeficit(encryptedDataModel.Sleep);
-
-			//Hydration Computation.
+			// Hydration Comutation.
 			encryptedDataModel.WaterProductivityLoss = hydrationComputation.DehydrationComputation(encryptedDataModel.Water);
-
+			// Weekly Salary Computation
 			encryptedDataModel.WeeklySalary = salaryComputation.GetWeeklySalary(encryptedDataModel.Salary);
-
+			// Total Break Time Computation.
 			encryptedDataModel.TotalBreakTime = breaksComputation.GetBreaks(encryptedDataModel.Breaks);
+			// Hours per day computation
 			encryptedDataModel.HoursPerDay = breaksComputation.GetDailyHours(encryptedDataModel.HoursWeek);
-			//encryptedDataModel.HoursPerDay = breaksComputation.GetDailyHours(encryptedDataModel.HoursWeek);
-			//BMI not working throwing error.
-			encryptedDataModel.BMI = bmiComputation.ComputeBMI(encryptedDataModel.HeightOverOne, encryptedDataModel.Weight);
+			
 			return encryptedDataModel;
 		}
 	}

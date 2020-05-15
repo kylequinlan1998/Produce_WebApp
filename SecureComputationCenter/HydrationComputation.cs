@@ -31,10 +31,9 @@ namespace Produce_WebApp.SecureComputationCenter
 
 		public Ciphertext DehydrationComputation(Ciphertext WaterEncrypted)
 		{
-			//Takaes in water drank ciphertext and adds negative six.
-			//Must be greater or equal to 6 to check correct amount of water drank.
+			// Takes input as ciphertext water value.
+			// Adds a negated six plaintext to the ciphertext and returns value.
 			Ciphertext HydrationCipherResult = new Ciphertext();
-
 			evaluator.AddPlain(WaterEncrypted, negativeSix, HydrationCipherResult);
 
 			return HydrationCipherResult;

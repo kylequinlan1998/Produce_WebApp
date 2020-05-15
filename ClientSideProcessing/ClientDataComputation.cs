@@ -36,21 +36,20 @@ namespace Produce_WebApp.ClientSideProcessing
 		{
 			if (Sleep <= -1)
 			{
-				//If user has had less than 6 hours sleep.
-				Sleepmessage = "Per night you sleep <= 6 hours per night.";
+				// Less than 8 hours
 				return 0.05;
 			}
 
 			else if (Sleep == 0)
 			{
-				Sleepmessage = "You are receving 8 hours of sleep per night";
+				// 8 hours
 				return 0.00;
 			}
 
 			else
 			{
-				Sleepmessage = "you have had 8+ Hours of sleep";
-				return 0.00;
+				//More than 8 hours
+				return 0.07;
 			}
 
 		}
@@ -104,6 +103,9 @@ namespace Produce_WebApp.ClientSideProcessing
 			computedDataModel.BreaksMonetaryLoss = (computedDataModel.BreaksProductivityLoss * computedDataModel.WeeklySalary);
 			computedDataModel.TotalWeeklyMonetaryLoss = (computedDataModel.WaterMonetaryLoss + computedDataModel.SleepMonetaryLoss + computedDataModel.BreaksMonetaryLoss);
 			computedDataModel.TotalYearlyMonetaryLoss = (computedDataModel.Salary * computedDataModel.TotalProductivityLoss);
+			computedDataModel.WaterAnnualLoss = (computedDataModel.WaterMonetaryLoss * 52);
+			computedDataModel.SleepAnnualLoss = (computedDataModel.SleepMonetaryLoss * 52);
+			computedDataModel.BreaksAnnualLoss = (computedDataModel.BreaksMonetaryLoss * 52);
 			return computedDataModel;
 		}
 
@@ -112,7 +114,6 @@ namespace Produce_WebApp.ClientSideProcessing
 			computedDataModel.Age = Math.Round(computedDataModel.Age, 0);
 			computedDataModel.Breaks = Math.Round(computedDataModel.Breaks, 0);
 			computedDataModel.BreaksMonetaryLoss = Math.Round(computedDataModel.BreaksMonetaryLoss, 2);
-			//Was going to put a breaks round here but there is currently no deficit.
 			computedDataModel.WeeklyHours = Math.Round(computedDataModel.WeeklyHours, 1);
 			computedDataModel.DailyHours = Math.Round(computedDataModel.DailyHours, 2);
 			computedDataModel.Salary = Math.Round(computedDataModel.Salary, 2);
@@ -125,7 +126,9 @@ namespace Produce_WebApp.ClientSideProcessing
 			computedDataModel.TotalYearlyMonetaryLoss = Math.Round(computedDataModel.TotalYearlyMonetaryLoss, 2);
 			computedDataModel.WaterDeficit = Math.Round(computedDataModel.WaterDeficit);
 			computedDataModel.SleepDeficit = Math.Round(computedDataModel.SleepDeficit);
-			
+			computedDataModel.SleepAnnualLoss = Math.Round(computedDataModel.SleepAnnualLoss, 2);
+			computedDataModel.BreaksAnnualLoss = Math.Round(computedDataModel.BreaksAnnualLoss, 2);
+			computedDataModel.WaterAnnualLoss = Math.Round(computedDataModel.WaterAnnualLoss, 2);
 
 			return computedDataModel;
 		}

@@ -51,19 +51,6 @@ namespace Produce_WebApp
 
         public void PassToDataDisplay(ComputedDataModel computedDataModel)
         {
-            /*DataDisplay.Age = computedDataModel.Age;
-            DataDisplay.HoursPerWeek = DecryptedDoubleList[6];
-            DataDisplay.Height = DecryptedDoubleList[2];
-            DataDisplay.Weight = DecryptedDoubleList[3];
-            DataDisplay.Sleep = DecryptedDoubleList[5];
-            DataDisplay.SleepLoss = DecryptedDoubleList[8];
-            DataDisplay.Breaks = DecryptedDoubleList[1];
-            //DataDisplay.BreaksDeficit = DecryptedDoubleList[];
-            DataDisplay.Hydration = DecryptedDoubleList[4];
-            DataDisplay.HydrationLoss = DecryptedDoubleList[9];
-            DataDisplay.TotalProductivityLoss = DecryptedDoubleList[12];
-            DataDisplay.WeeklySalary = DecryptedDoubleList[10];
-            */
             DataDisplay.computedDataModel = computedDataModel;
         }
 

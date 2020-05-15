@@ -22,8 +22,6 @@ namespace Produce_WebApp.DataFlowController
 		private ClientDataPreProcessor preprocessor;
 		private MessageGeneration messageGeneration;
 
-		public List<double> ResultList { get; set; }
-		//used for encryption and decryption.
 		public FlowController()
 		{
 			//Create an instance of bfv Encryption
