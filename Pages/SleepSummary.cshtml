@@ -1,16 +1,64 @@
 ﻿@page
 @model Produce_WebApp.SleepSummaryModel
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
-<!DOCTYPE html>
-
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>SleepSummary</title>
+    <!-- Required meta tags -->
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+          asp-fallback-href="~/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css"
+          asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+    <link rel="stylesheet" href="~/wwwroot/css/site.min.css" asp-append-version="true" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <title>Sleep Summary</title>
 </head>
 <body>
+    
+    <main>
+        <H1>Productivity Summary</H1>
+        <H3>Weekly Monetary Loss: @Model.computedDataModel.SleepMonetaryLoss</H3>
+        <H3>Yearly Monetary Loss: @Model.computedDataModel.SleepAnnualLoss</H3>
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <p>@Model.computedDataModel.SleepMessage</p>
+                </div>
+                <div class="col-4">
+                    <canvas id="SleepChart" style="height:50em"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+    var ctx = document.getElementById('SleepChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: ['Productivity Loss','Productivity'],
+        datasets: [{
+            label: 'Productivity Breakdown',
+            backgroundColor: ['rgb(230, 227, 227)','rgb(255, 255, 255)'],
+            borderColor: 'rgb(255, 99, 132)',
+            data: [@Model.computedDataModel.SleepProductivityLoss, 100 - @Model.computedDataModel.SleepProductivityLoss]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+    </script>
 </body>
 </html>
