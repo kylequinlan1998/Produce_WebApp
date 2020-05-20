@@ -37,5 +37,12 @@ namespace Produce_WebApp.Models
 		public double TotalProductivityLoss { get; set; }
 		public double TotalYearlyMonetaryLoss { get; set; }
 		public string SummaryMessage { get; set; }
+		public double SleepChart1 { get; set; }
+		public double SleepChart2 { get; set; }
+		public double BreaksChart1 { get; set; }
+		public double  BreaksChart2 { get; set; }
+		public double WaterChart1 { get; set; }
+		public double WaterChart2 { get; set; }
+
 	}
 }
