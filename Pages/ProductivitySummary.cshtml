@@ -86,7 +86,7 @@ var chart = new Chart(ctx, {
             label: 'Productivity Breakdown',
             backgroundColor: ['rgb(230, 227, 227)','rgb(255, 255, 255)'],
             borderColor: 'rgb(255, 99, 132)',
-            data: [@Model.computedDataModel.SleepProductivityLoss, 100 - @Model.computedDataModel.SleepProductivityLoss]
+            data: [@Model.computedDataModel.SleepChart1, @Model.computedDataModel.SleepChart2]
         }]
     },
 
@@ -108,7 +108,7 @@ var chart = new Chart(ctx, {
             label: 'Productivity Breakdown',
             backgroundColor: ['rgb(57, 204, 245)','rgb(255, 255, 255)'],
             borderColor: 'rgb(255, 99, 132)',
-            data: [@Model.computedDataModel.WaterProductivityLoss, 100 - @Model.computedDataModel.WaterProductivityLoss]
+            data: [@Model.computedDataModel.WaterChart1, @Model.computedDataModel.WaterChart2]
         }]
     },
 
@@ -130,7 +130,7 @@ var chart = new Chart(ctx, {
             label: 'Productivity Breakdown',
             backgroundColor: ['rgb(141, 219, 184)','rgb(255, 255, 255)'],
             borderColor: 'rgb(255, 99, 132)',
-            data: [@Model.computedDataModel.BreaksProductivityLoss, 100 - @Model.computedDataModel.BreaksProductivityLoss]
+            data: [@Model.computedDataModel.BreaksChart1, @Model.computedDataModel.BreaksChart2]
         }]
     },
 

@@ -30,6 +30,9 @@ namespace Produce_WebApp.ClientSideProcessing
 
 			computedDataModel = TotalMonetaryLoss(computedDataModel);
 			computedDataModel = NormaliseValues(computedDataModel);
+
+			computedDataModel = GetChartValues(computedDataModel);
+
 			return computedDataModel;
 		}
 		private double GetSleepLoss(double Sleep)
@@ -138,6 +141,20 @@ namespace Produce_WebApp.ClientSideProcessing
 
 		}
 
+		private ComputedDataModel GetChartValues(ComputedDataModel computedDataModel)
+		{
+			//Get Break values for chart.
+			computedDataModel.BreaksChart1 = computedDataModel.BreaksProductivityLoss*100;
+			computedDataModel.BreaksChart2 = (100 - computedDataModel.BreaksChart1);
+			//Get Sleep values for chart.
+			computedDataModel.SleepChart1 = computedDataModel.SleepProductivityLoss*100;
+			computedDataModel.SleepChart2 = 100 - computedDataModel.SleepChart1;
+			//Get Water values for chart.
+			computedDataModel.WaterChart1 = computedDataModel.WaterProductivityLoss*100;
+			computedDataModel.WaterChart2 = 100 - computedDataModel.WaterChart1;
+
+			return computedDataModel;
+		}
 		
 	}
 }
