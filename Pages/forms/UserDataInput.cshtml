@@ -3,97 +3,52 @@
 @{
     ViewData["Title"] = "UserDataInput";
     @Model.error;
-	Layout = "_Layout"; 
+    
 }
-<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
-      asp-fallback-href="~/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css"
-      asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-<link rel="stylesheet" href="~/wwwroot/css/site.min.css" asp-append-version="true" />
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
-<style type="text/css">
-    h1,h2,p  {
-    text-align: center;
-    padding: 1em;
-    color:#808080;
-}
-
-h1 {
-    font-size: 2em;
-}
-
-h2 {
-    font-size: 1em;
-}
-h3 {
-    text-align: left;
-    padding:1em;
-}
-
-.form-control {
-    margin: 20px
-}
-
-.btn {
-    margin:20px;
-}
-
-.sub-title {
-    text-align:left;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.text-left {
-    text-align: left;
-}
-
-.yellow {
-    color: #FFCA33;
-}
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
     <main>
-        <H1 class="yellow">Produce</H1>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-6">
-                    <p>To find out if you are working to your full capacity please fill in the form. This application utilises homomorphic encryption.</p>
+                <div class="col-md text-center jumbotron">
+                    <h1 >Produce</h1>
+                    <h6 >To find out if you are working to your full capacity please fill in the form. This application utilises homomorphic encryption.</h6>
                 </div>
-                <div class="col-6">
-                    <form method="post" asp-page-handler="test">
-                        <div class="row">
-                            <div class="col-6">
-                                <input type="text" asp-for="UserDataPlain.FirstName" placeholder="FirstName" />
-                            </div>
-                            <div class="col-6">
-                                <input type="text" asp-for="UserDataPlain.Age" placeholder="Age" />
-                                <input type="text" asp-for="UserDataPlain.WaterPerDay" placeholder="Water Per Day" />
-                                <input type="text" asp-for="UserDataPlain.Sleep" placeholder="Sleep" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <input type="text" asp-for="UserDataPlain.Salary" placeholder="Salary" />
-                                <input type="text" asp-for="UserDataPlain.Breaks" placeholder="Breaks" />
-                                <input type="text" asp-for="UserDataPlain.Hours" placeholder="Hours Worked Per Day" />
-                            </div>
-                            <div class="col-6">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <button type="submit" class="btn btn-secondary">Submit</button>
-                            </div>
-                        </div>
-                    </form>
             </div>
-        </div>
+            <div class="row">
+                
+                    <div class="col-md-4">
+                       
+                    </div>
+                    <div class="col-md-4">
+                        <form method="post" asp-page-handler="test">
+                            <input type="text" asp-for="UserDataPlain.Age" placeholder="Age" style="margin-bottom:1em;margin-top:10em;" />
+                            <input type="text" asp-for="UserDataPlain.WaterPerDay" placeholder="Water Per Day" />
+                            <input type="text" asp-for="UserDataPlain.Sleep" placeholder="Sleep" />
+                            <input type="text" asp-for="UserDataPlain.Salary" placeholder="Salary" style="margin-bottom:1em;"/>
+                            <input type="text" asp-for="UserDataPlain.Breaks" placeholder="Breaks" />
+                            <input type="text" asp-for="UserDataPlain.Hours" placeholder="Hours Worked Per Day" />
+                            <button type="submit" class="btn btn-outline-success">Submit</button>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        
+                    </div>
+            </div>
+                <div class="row">
+                    
+                </div>
         </div>
     </main>
-
+</body>
+</html>
