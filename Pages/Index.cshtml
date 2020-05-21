@@ -3,10 +3,30 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
-    <div class="text-center">
-        <h1 class="">Welcome! Please press continue to be forwarded to the form page. </h1>
-
-
-        <a href="/forms/UserDataInput">Continue</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="text-center jumbotron">
+        <h1>Welcome!</h1>
+        <h4>This application uses homomorphic encryption technology to securley compute using your data.</h4>
     </div>
+    <div class="text-center">
+        <a class="btn btn-outline-success" href="/forms/UserDataInput">Continue</a>
+        <!--<a href="/forms/UserDataInput">Continue</a>-->
+    </div>
+    <div class="footer fixed-bottom text-center">
+        <footer>
+            Produce Productivity Application 2020
+        </footer>
+    </div>
+</body>
+</html>
