@@ -19,21 +19,29 @@
 <body>
 
     <main>
-        <H1>Productivity Summary</H1>
-        <H3>Weekly Monetary Loss: @Model.computedDataModel.WaterMonetaryLoss</H3>
-        <H3>Yearly Monetary Loss: @Model.computedDataModel.WaterAnnualLoss</H3>
+        <div class="text-center" style="padding-bottom:2em;">
+            <H1>Hydration Summary</H1>
+            
+        </div>
         <div class="container">
             <div class="row">
-                <div class="col-8">
-                    <p>@Model.computedDataModel.WaterMessage</p>
+                <div class="col-md-4">
+                    <div style="padding-top:2em;">
+                        <H3>Weekly Monetary Loss: £@Model.computedDataModel.WaterMonetaryLoss</H3>
+                        <H3>Yearly Monetary Loss: £@Model.computedDataModel.WaterAnnualLoss</H3>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <canvas id="WaterChart" style="height:50em"></canvas>
+                <div class="col-md-8">
+                    <canvas id="WaterChart"></canvas>
+                </div>
+            </div>
+            <div class="row" style="padding-top:2em;">
+                <div class="col">
+                    @Model.computedDataModel.WaterMessage
                 </div>
             </div>
         </div>
     </main>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
