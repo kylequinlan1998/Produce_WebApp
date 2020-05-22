@@ -17,17 +17,17 @@ namespace Produce_WebApp
         [BindProperty]
         public InputDataModel UserDataPlain { get; set; }
         public FlowController controller;
-        public string error = "";
+        public string error;
         
         
 
         public IActionResult OnPostTest()
         {
-            //Ensure the Data has been Correctly Entered into the form.
+            //Ensure the Data has been incorrectly entered into the form.
             //If so create an instance of the DataController and pass the Data Model as an argument.
             if (!ModelState.IsValid)
             {
-                error = "The Data was not In the correct form,Please try again.";
+                error = "Please ensure you filled in the form correctly and try again!";
                 return Page();
 
             }

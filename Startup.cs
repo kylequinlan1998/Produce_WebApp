@@ -24,6 +24,8 @@ namespace Produce_WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddRazorPages()
+        .AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,7 +34,9 @@ namespace Produce_WebApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
+
             else
             {
                 app.UseExceptionHandler("/Error");

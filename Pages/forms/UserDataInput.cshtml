@@ -2,7 +2,7 @@
 @model Produce_WebApp.userData
 @{
     ViewData["Title"] = "UserDataInput";
-    @Model.error;
+    
     
 }
 <!DOCTYPE html>
@@ -21,34 +21,39 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md text-center jumbotron">
-                    <h1 >Produce</h1>
-                    <h6 >To find out if you are working to your full capacity please fill in the form. This application utilises homomorphic encryption.</h6>
+                    <h1>Produce</h1>
+                    <h6>To find out if you are working to your full capacity please fill in the form. This application utilises homomorphic encryption.</h6>
                 </div>
             </div>
             <div class="row">
-                
-                    <div class="col-md-4">
-                       
-                    </div>
-                    <div class="col-md-4">
-                        <form method="post" asp-page-handler="test">
-                            <input type="text" asp-for="UserDataPlain.Age" placeholder="Age" style="margin-bottom:1em;margin-top:10em;" />
-                            <input type="text" asp-for="UserDataPlain.WaterPerDay" placeholder="Water Per Day" />
-                            <input type="text" asp-for="UserDataPlain.Sleep" placeholder="Sleep" />
-                            <input type="text" asp-for="UserDataPlain.Salary" placeholder="Salary" style="margin-bottom:1em;"/>
-                            <input type="text" asp-for="UserDataPlain.Breaks" placeholder="Breaks" />
-                            <input type="text" asp-for="UserDataPlain.Hours" placeholder="Hours Worked Per Day" />
-                            <button type="submit" class="btn btn-outline-success">Submit</button>
-                        </form>
-                    </div>
-                    <div class="col-md-4">
-                        
-                    </div>
-            </div>
-                <div class="row">
-                    
+
+                <div class="col-md-4">
+                    @Model.error
                 </div>
+                <div class="col-md-4">
+                    <form method="post" asp-page-handler="test">
+                        <input type="text" asp-for="UserDataPlain.Age" placeholder="Age" style="margin-bottom:1em;margin-top:10em;" />
+                        <input type="text" asp-for="UserDataPlain.WaterPerDay" placeholder="Water Per Day" />
+                        <input type="text" asp-for="UserDataPlain.Sleep" placeholder="Sleep" />
+                        <input type="text" asp-for="UserDataPlain.Salary" placeholder="Salary" style="margin-bottom:1em;" />
+                        <input type="text" asp-for="UserDataPlain.Breaks" placeholder="Breaks" />
+                        <input type="text" asp-for="UserDataPlain.Hours" placeholder="Hours Worked Per Day" />
+                        <button type="submit" class="btn btn-outline-success">Submit</button>
+                    </form>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
+            <div class="row">
+
+            </div>
         </div>
     </main>
+    <div class="footer fixed-bottom text-center">
+        <footer>
+            Produce Productivity Application 2020
+        </footer>
+    </div>
 </body>
 </html>
