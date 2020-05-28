@@ -1,0 +1,29 @@
+﻿#SleepRow {
+	border: 5px solid rgb(230, 227, 227);
+	border-radius: 1em;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	padding: 2em;
+}
+
+#WaterRow {
+	border: 5px solid rgb(57, 204, 245);
+	border-radius: 1em;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	padding: 2em;
+}
+#BreakRow {
+	border: 5px solid rgb(141, 219, 184);
+	border-radius: 1em;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	padding: 2em;
+}
+#SleepCost{
+	border-right:3px solid black;
+}
+
+#BreaksCost {
+	border-left:3px solid black;
+}
