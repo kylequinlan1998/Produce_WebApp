@@ -8,9 +8,6 @@ a.navbar-brand {
   background-color:red;
 }
 
-nav{
-    color:red;
-}
 .top-buffer {
     margin-top: 100px;
 }
@@ -34,7 +31,7 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+  font-size: 20px;
 }
 @media (min-width: 768px) {
   html {
